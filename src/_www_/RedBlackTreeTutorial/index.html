@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Red-Black Tree Tutorial</title><link rel="stylesheet" href="docbook.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="Red-Black Tree Tutorial" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Red-Black Tree Tutorial</th></tr></table><hr /></div><div class="article" title="Red-Black Tree Tutorial"><div class="titlepage"><div><div><h2 class="title"><a id="id2786236"></a>Red-Black Tree Tutorial</h2></div><div><h3 class="subtitle"><i>things behind the tricks</i></h3></div><div><div class="author"><h3 class="author"><span class="firstname">Forrest Y. Yu</span></h3></div></div></div><hr /></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="index.html#id2788239">Prerequisites</a></span></dt><dt><span class="section"><a href="index.html#transform">2-3-4 Tree, transform!</a></span></dt><dt><span class="section"><a href="index.html#id2787787">Make a decision</a></span></dt><dt><span class="section"><a href="index.html#id2787831">Rotation</a></span></dt><dt><span class="section"><a href="index.html#flip">Flip</a></span></dt><dt><span class="section"><a href="index.html#id2786861">Red-Black Tree</a></span></dt><dt><span class="section"><a href="index.html#id2787031">Search</a></span></dt><dt><span class="section"><a href="index.html#id2787052">Insert</a></span></dt><dd><dl><dt><span class="section"><a href="index.html#id2838421">Implementation of Insertion</a></span></dt></dl></dd><dt><span class="section"><a href="index.html#id2838464">Deletion</a></span></dt><dd><dl><dt><span class="section"><a href="index.html#id2839182">Implementation of Deletion</a></span></dt></dl></dd><dt><span class="section"><a href="index.html#id2839262">More you should know</a></span></dt><dt><span class="section"><a href="index.html#id2839380">About this tutorial</a></span></dt><dt><span class="section"><a href="index.html#id2839394">Reference(s)</a></span></dt><dt><span class="section"><a href="index.html#id2839404">Exercises</a></span></dt><dd><dl><dt><span class="section"><a href="index.html#ex1">Exercise 1</a></span></dt><dt><span class="section"><a href="index.html#ex2">Exercise 2</a></span></dt><dt><span class="section"><a href="index.html#ex3">Exercise 3</a></span></dt><dt><span class="section"><a href="index.html#ex4">Exercise 4</a></span></dt></dl></dd><dt><span class="section"><a href="index.html#id2839541">Solutions</a></span></dt><dd><dl><dt><span class="section"><a href="index.html#sol1">Solution to Exercise 1</a></span></dt><dt><span class="section"><a href="index.html#sol2">Solution to Exercise 2</a></span></dt><dt><span class="section"><a href="index.html#sol3">Solution to Exercise 3</a></span></dt><dt><span class="section"><a href="index.html#sol4">Solution to Exercise 4</a></span></dt></dl></dd></dl></div><p>
+    Red-Black Tree is tricky. If you have learned about Red-Black Tree, please forget what you have learned temporarily, follow this tutorial, then go back to your Red-Black textbook. You'll find the RBtree is not that difficult to grasp.
+  </p><div class="section" title="Prerequisites"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="id2788239"></a>Prerequisites</h2></div></div></div><p>Before reading this tutorial, you should have known:</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>Binary Search Tree</p></li><li class="listitem"><p>2-3-4 Tree</p></li></ul></div><p>
+      If you don't know what 2-3-4 tree is, don't panic. Search it and study it right now. The concept of 2-3-4 tree is simple. I think you can understand the idea in a few minutes. Understanding the idea will be enough. You don't have to write any code to implement a 2-3-4 tree.
+    </p></div><div class="section" title="2-3-4 Tree, transform!"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="transform"></a>2-3-4 Tree, transform!</h2></div></div></div><p>
+      2-3-4 tree is good, but it is not binary. We are fond of binary trees. Can we represent a 2-3-4 tree in a binary way? Obama has told you: yes, we can.
+    </p><p>
+      Let's study the 3 kinds of node in a 2-3-4 tree.
+    </p><p>
+      2-node
+      <span class="inlinemediaobject"><img src="2-node.png" align="middle" /></span>
+      , apparently, is already binary. We can map a 2-node directly to a binary tree node:
+      <span class="inlinemediaobject"><img src="2-node-a.png" align="middle" /></span>
+      (We use different colors to denote arrows pointing to different children, cyan for left and magenta for right.
+      You'll find the coloring useful after studying trees for 10 hours and try to point out which one is left subtree and which one is right).
+    </p><p>
+      3-node
+      <span class="inlinemediaobject"><img src="3-node.png" align="middle" /></span>
+      is a little more complicated, but not difficult. We can represent a 3-node in two different ways:
+      <span class="inlinemediaobject"><img src="3-node-a.png" align="middle" /></span>
+      and
+      <span class="inlinemediaobject"><img src="3-node-b.png" align="middle" /></span>
+      . From this moment on, you will see different colors in a binary tree nodes: black and red. When you see a red node, say N, please remember N and parent(N) are supposed to live in the same node. It's very important to keep this in your mind. Once you find yourself confused by any Red-Black Tree operation, tell yourself: RBtree is simple, absorb all red nodes into their parents, they are just 2-3-4 trees!
+    </p><p>
+      OK, let's look at 4-node now. It's more complicated than 3-node, but not difficult either. There are 5 ways to represent a 4-node like
+      <span class="inlinemediaobject"><img src="4-node.png" align="middle" /></span>
+      :
+    </p><p>
+      <span class="inlinemediaobject"><img src="4-node-a.png" align="middle" /></span>
+      ,
+      <span class="inlinemediaobject"><img src="4-node-b.png" align="middle" /></span>
+      ,
+      <span class="inlinemediaobject"><img src="4-node-c.png" align="middle" /></span>
+      ,
+      <span class="inlinemediaobject"><img src="4-node-d.png" align="middle" /></span>
+      ,
+      <span class="inlinemediaobject"><img src="4-node-e.png" align="middle" /></span>
+      .
+      For convenience, I will call this five cases "The Gang of Five".
+      Note that all of them have the property that the inorder traversal is ordered.
+    </p><p>
+      If you have learned RBtree from any other materials, you are probably told that a red node cannot have a red child, but the fact is it can. Yes it can. The only reason for us to avoid two red nodes in a row is to simplify the rules. Again, please do remember that RBtrees are essentially 2-3-4 trees. As long as a RBtree is essentially a valid 2-3-4 tree, it is a good RBtree.
+    </p></div><div class="section" title="Make a decision"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="id2787787"></a>Make a decision</h2></div></div></div><p>
+      We listed 5 possibilities to represent a 4-node. Now have a break. Make a cup of coffee and ask yourself some questions, "why are we here? what are we doing?" The answer would be "we are trying to map 2-3-4 trees to binary trees." But why bother? Why do we learn 2-3-4 trees and try to implement one using whatever method? Ah, yes, because 2-3-4 trees are balanced. The cost of search/insertion/deletion of nodes are guaranteed O(lg(n)).
+    </p><p>
+      It is very important to keep in mind that we are working on <span class="emphasis"><em>balanced</em></span> trees. Now look at The Gang of Five. Apparently Case.1 looks more balanced than others. Things begin to be tricky. Although all the 5 cases are "essentially" balanced 4-nodes, but they are "literally" binary trees, so when we do any operations on it, they ARE binary trees. Therefore, Case.1 is obviously better than other 4 cases and we will use it as the default representation of 4-node.
+    </p><p>
+      What about Case.2, 3, 4, 5? You must have guessed the answer. We love them, but we decide to avoid using them. And you've learned why: they are not as balanced.
+    </p><p>
+      Now you know why your textbook tells you that red nodes must not have red children. They can have red children, but for sake of efficiency, we better not let them.
+    </p></div><div class="section" title="Rotation"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="id2787831"></a>Rotation</h2></div></div></div><p>
+      Please do not hate Case.2-5. They are friendly. They are not standing in your way and doing evil. You'll find that we can make good use of them. They just cannot appear in the final RBtrees.
+    </p><p>
+      The good news is, we can always transform the Case.2-5 into Case.1 by "rotating" them. "Rotation" is an interesting operation. It changes a tree but keeps the relationship between nodes: LEFT(N) &lt; N &lt; RIGHT(N).
+    </p><p>
+      To rotate a tree, just imagine you are, well, rotating it. Let's take Case.2 for example. If we want to transform it into Case.1, we can imagine node 4 is a pivot. Imagine we can rotate the node 6 clockwise so that 6 and 7 will move around 4. When 6 and 7 have reached the positions like that in Case.1, we take 5 (and its subtrees, if any) away from 4 and give it to 6 and we're done. In this process, the moving part (node 6 and its right subtree) is at the right side of the stable part (node 4), so we call it Right-Rotate, denoted as RotR(6).
+    </p><p>
+      Similarly, we can Left-Rotate Case.3 to get Case.1. The rotation is denoted as RotL(2).
+    </p><p>
+      Case.4 and Case.5 are more complicated, because one rotation is not enough. For Case.4, we will have to RotL(2) to get Case.2, then RotR(6) to get Case.1. For Case.5, we RotR(6) then RotL(2).
+    </p><p>
+      Sometimes the rotations applied to Case.4 and Case.5 are called Double-Rotations. What they are called are not important. All we have to know is they are all disguised 4-nodes.
+    </p><p>
+      We will do a lot of rotations, please make sure you have learned how to perform Left-Rotations and Right-Rotations.
+    </p></div><div class="section" title="Flip"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="flip"></a>Flip</h2></div></div></div><p>
+      2-3-4 tree has many interesting properties. Look at this 2-3-4 tree:
+      <span class="inlinemediaobject"><img src="234tree-a.png" align="middle" /></span>
+      , if we move 4 to its parent node, we get
+      <span class="inlinemediaobject"><img src="234tree-b.png" align="middle" /></span>
+      . The former tree contains one 4-node, while the latter tree contains one 3-node.
+    </p><p>
+      Let's have a look at the counterparts of them in the Red-Black world, those would be
+      <span class="inlinemediaobject"><img src="2-4-node.png" align="middle" /></span>
+      and
+      <span class="inlinemediaobject"><img src="3-2-node.png" align="middle" /></span>
+      . That is to say, if COLOR(N) is black and both COLOR(LEFT(N)) and COLOR(RIGHT(N)) are red, we can change the color of the three node at the same time and get another tree.Interestingly and importantly, the new tree is balanced too. We call this color-changing process "flip", since it's like fliping the colors over.
+    </p><p>
+      So far we have had two weapons to manipulate RBtrees: Rotation and Flip. Both of them keeps the tree balanced - I mean if we represent the RBtree as a 2-3-4 tree, it's perfectly balanced.
+    </p></div><div class="section" title="Red-Black Tree"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="id2786861"></a>Red-Black Tree</h2></div></div></div><p>
+      Till now, you have learned everything about Red-Black Tree. You may not believe this, because we just talked about how to represent 2-3-4 trees with Black and Red nodes. I'm telling the truth, however, because RBtrees are 2-3-4 trees.
+    </p><p>
+      If you doubt it, let's have a look at the definitive description of Red-Black Tree (from <a class="ulink" href="http://en.wikipedia.org/wiki/Red-black_tree" target="_top">Wikipedia</a>):
+    </p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>A node is either red or black.</p></li><li class="listitem"><p>The root is black. (This rule is sometimes omitted from other definitions. Since the root can always be changed from red to black but not necessarily vice-versa this rule has little effect on analysis.)</p></li><li class="listitem"><p>All leaves are black.</p></li><li class="listitem"><p>Both children of every red node are black.</p></li><li class="listitem"><p>Every simple path from a given node to any of its descendant leaves contains the same number of black nodes.</p></li></ol></div><p>(Do not read the Red-Black Tree item in Wikipedia, it is not as good as mine :-)</p><p>Let's see why RBtrees are defined this way:</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>A node is either red or black - <span class="emphasis"><em>red nodes is combined with its parent to form a 3-node or 4-node</em></span></p></li><li class="listitem"><p>The root is black - <span class="emphasis"><em>the root has no parent, so a red root would be meaningless</em></span></p></li><li class="listitem"><p>All leaves are black - <span class="emphasis"><em>note that the "leaves" are nil nodes</em></span></p></li><li class="listitem"><p>Both children of every red node are black - <span class="emphasis"><em>we've explained this, bazinga</em></span></p></li><li class="listitem"><p>Every simple path from a given node to any of its descendant leaves contains the same number of black nodes - <span class="emphasis"><em>because number of black nodes implies the height of the 2-3-4 tree</em></span></p></li></ol></div><p>
+      OK, it's time to have a glance at a bigger RBtree:
+      </p><div class="mediaobject"><img src="rbtree0.png" /><div class="caption"><p>Red-Black Tree</p></div></div><p>
+    </p><p>There are six 3-nodes and one 4-node in this RBtree. The 3-nodes are {3,7}, {10,14}, {15,16}, {17,26}, {19,20}, {30,41}. The 4-node is {35,38,39}.</p></div><div class="section" title="Search"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="id2787031"></a>Search</h2></div></div></div><p>Searching is trvial.</p><pre class="programlisting">
+NODE * rb_search(NODE * T, int v)
+{
+	if (T == nil)
+		return 0;
+
+	if (v &lt; T-&gt;val)
+		return rb_search(T-&gt;L, v);
+	else if (v &gt; T-&gt;val)
+		return rb_search(T-&gt;R, v);
+	else
+		return T;
+}
+</pre></div><div class="section" title="Insert"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="id2787052"></a>Insert</h2></div></div></div><p>Always remember that we are manipulating disguised 2-3-4 trees, so think in 2-3-4 trees. In 2-3-4 trees, we insert a node by putting the new value into an existing node so that a 2-node becomes a 3-node, a 3-node becomes a 4-node, and a 4-node becomes, well, an invalid node - we cannot insert anything into a 4-node. What do we do then? The answer is to avoid end up with an insertion into a 4-node by fliping (see <a class="xref" href="index.html#flip" title="Flip">Flip</a>) every 4-node to split it into two 2-nodes when we go downward.</p><p>Note that the new node is always added to a leaf, therefore when we keep flipping 4-nodes, it can be guaranteed that we will not end up with a 4-node.</p><p>There are 3 kinds of nodes in a 2-3-4 tree: 2-node, 3-node and 4-node. Note that a 4-node we meet never follows a 4-node, because if it does, we would have splitted it. So a 4-node follows either a 2-node or a 3-node. We should make sure the insertion process works in both of the cases.</p><p>
+      A 4-node following a 2-node is very simple to handle. For example:
+      
+	
+      </p><div class="mediaobject"><img src="insert-7-a.png" alt="An Red-Black Tree illustration." /></div><p>
+      
+      Let's insert 7 into this tree. Starting from 16, we go left and left till arriving at a 4-node {2,4,6}. Then we flip:
+      
+	
+      </p><div class="mediaobject"><img src="insert-7-b.png" alt="An Red-Black Tree illustration." /></div><p>
+      
+      Then we go right to the leaf 6 and insert 7:
+      
+	
+      </p><div class="mediaobject"><img src="insert-7-c.png" alt="An Red-Black Tree illustration." /></div><p>
+      
+    </p><p>
+      A 4-node following a 3-node is a little more complicated. Look at this RBtree:
+      </p><div class="figure"><a id="before-insertion-3"></a><p class="title"><b>Figure 1. Red-Black Tree sample A</b></p><div class="figure-contents"><div class="mediaobject"><img src="insert-3-a.png" alt="An Red-Black Tree illustration." /></div></div></div><p><br class="figure-break" />
+    </p><p>
+      This is essentially a 2-3-4 tree with a 3-node {8,16} followed by three 4-nodes {2,4,6}, {10,12,14} and {20,24,28}. Suppose we're going to insert 3. We start from 16 and find it part of a 3-node {8,16}, so we go left to 4. This is a 4-node {2,4,6}, let's split it into two 2-nodes by flipping it:
+      </p><div class="figure"><a id="inserting-3-flip"></a><p class="title"><b>Figure 2. Red-Black Tree sample A: Flip</b></p><div class="figure-contents"><div class="mediaobject"><img src="insert-3-b.png" alt="An Red-Black Tree illustration." /></div></div></div><p><br class="figure-break" />
+      Let's have a look at the new tree. {4,8,16} is a 4-node (Case.2 of The Gang of Five), which has 4 children/subtrees: 2, 6, {10,12,14} and {20,24,28}. Don't be nervous when seeing a 4-node like {4,8,16}. Take it easy, we will transform it when we go upwards.
+    </p><p>
+      Finally we will reach the 2-node 2 and insert 3:
+      </p><div class="figure"><a id="inserting-3-insert"></a><p class="title"><b>Figure 3. Red-Black Tree sample A: Insert</b></p><div class="figure-contents"><div class="mediaobject"><img src="insert-3-c.png" alt="An Red-Black Tree illustration." /></div></div></div><p><br class="figure-break" />
+    </p><p>The new inserted node is red because we are inserting it into an existing node, a 2-node or a 3-node.</p><p>
+      If we allow all The Gang of Five to appear in a RBtree, we've already done. But the fact is we only accept one of them: Case.1. Therefore we must transform Case.2, Case.3, Case.4 and Case.5 into Case.1. This is the task we should do when we go upwards.
+    </p><p>
+      Before doing the transformation, we must recognize the four cases. Fortunately it's easy, because each of them has two red nodes in a row.
+      </p><div class="figure"><a id="inserting-3-before-transformation"></a><p class="title"><b>Figure 4. Red-Black Tree sample A: Before Transformation</b></p><div class="figure-contents"><div class="mediaobject"><img src="insert-3-d.png" alt="An Red-Black Tree illustration." /></div></div></div><p><br class="figure-break" />
+      This is obviously Case.2. We can perform the transformation when we reach node 16.
+    </p><p>
+      After transformation, we get the final RBtree:
+      </p><div class="figure"><a id="inserting-3-after-transformation"></a><p class="title"><b>Figure 5. Red-Black Tree sample A: After Transformation</b></p><div class="figure-contents"><div class="mediaobject"><img src="insert-3-e.png" alt="An Red-Black Tree illustration." /></div></div></div><p><br class="figure-break" />
+    </p><p>
+      The reader is urged to do <a class="link" href="index.html#ex1" title="Exercise 1">Exercise 1</a>, <a class="link" href="index.html#ex2" title="Exercise 2">Exercise 2</a> and <a class="link" href="index.html#ex3" title="Exercise 3">Exercise 3</a> at once.
+    </p><div class="section" title="Implementation of Insertion"><div class="titlepage"><div><div><h3 class="title"><a id="id2838421"></a>Implementation of Insertion</h3></div></div></div><pre class="programlisting">
+enum RB {R, B};			/* R: Red; B: Black */
+
+typedef struct _rbnode {
+	int              val;
+	enum RB          rb;
+	struct _rbnode * L;
+	struct _rbnode * R;
+	struct _rbnode * P;
+} NODE;
+
+extern NODE * nil;		/* nil points to a sentinel node with color Black */
+
+/* REF: Robert Sedgewick, Algorithms in C */
+NODE * RBinsert(NODE * h, int item, int sw)
+{
+	int v = item;
+	if (h == nil)
+		return alloc_node(item, R);
+	if (h-&gt;L-&gt;rb == R &amp;&amp; h-&gt;R-&gt;rb == R) { /* flip */
+		h-&gt;rb = R;
+		h-&gt;L-&gt;rb = B;
+		h-&gt;R-&gt;rb = B;
+	}
+	if (v &lt; h-&gt;val) {
+		h-&gt;L = RBinsert(h-&gt;L, item, 0);
+		h-&gt;L-&gt;P = h;
+		if (h-&gt;rb == R &amp;&amp; h-&gt;L-&gt;rb == R &amp;&amp; sw) {  /* Case.5 */
+			h = rotR(h);
+		}
+		if (h-&gt;L-&gt;rb == R &amp;&amp; h-&gt;L-&gt;L-&gt;rb == R) {  /* Case.2 */
+			h = rotR(h);
+			h-&gt;rb = B;
+			h-&gt;R-&gt;rb = R;
+		}
+	} else {
+		h-&gt;R = RBinsert(h-&gt;R, item, 1);
+		h-&gt;R-&gt;P = h;
+		if (h-&gt;rb == R &amp;&amp; h-&gt;R-&gt;rb == R &amp;&amp; !sw) { /* Case.4 */
+			h = rotL(h);
+		}
+		if (h-&gt;R-&gt;rb == R &amp;&amp; h-&gt;R-&gt;R-&gt;rb == R) {  /* Case.3 */
+			h = rotL(h);
+			h-&gt;rb = B;
+			h-&gt;L-&gt;rb = R;
+		}
+	}
+	return h;
+}
+
+void rb_insert(int item)
+{
+	root = RBinsert(root, item, 0);
+	root-&gt;rb = B;
+}
+</pre></div></div><div class="section" title="Deletion"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="id2838464"></a>Deletion</h2></div></div></div><p>
+      We have learned a very smart insertion. It guarantees no 4-node will appear in the leaf so that we can insert without having to worry about overflow.
+      Inspired by this, we realize that we want to reach no 2-node leaf when deleting a value, so that we don't have to worry about underflow.
+    </p><p>
+      The method to avoid reaching a 2-node is to combine any 2-node with part of its parent and part of its sibling
+      so that the 2-node expands to a 3-node or 4-node. We do the combination when going downwards.
+      We keep doing this till we find the value, if at least one of its child is nil, we just remove it;
+      otherwise we will replace this value with its successor (the successor must satisfy the condition that at least one of its child is nil) and remove the successor.
+    </p><p>
+      This main idea is, like insertion, quite simple. However, to combine a 2-node with other nodes is not as straightforward as to split a 4-node.
+      We must be very careful.
+    </p><p>
+      When we go downwards the tree, the only thing we know is that the parent of the current node is not a 2-node, because we just came from it.
+      If the parent is a 2-node, we would have transformed it into a 3-node or 4-node. We don't know anything about the sibling.
+      It can be a 2-node, or 3-node, or 4-node.
+    </p><p>
+      Let's assume the sibling is a 2-node. Suppose we have a 2-3-4 tree like this:
+      </p><div class="figure"><a id="merge-2-nodes-a"></a><p class="title"><b>Figure 6. two 2-nodes</b></p><div class="figure-contents"><div class="mediaobject"><img src="34-2-2-node.png" alt="a 3-node or 4-node followed by two 2-nodes" /><div class="caption"><p>The yellow asterisk represent a subtree we don't care about;</p><p>The magenta asterisks with white background mean they may or may not exist and either case has nothing to do with our following operation.</p></div></div></div></div><p><br class="figure-break" />
+      Now we want to delete 26 from it, so we will arrive at 28 and find it a 2-node. Then we'll find its sibling 16 is a 2-node too.
+      Inspired by the flipping operation, we can just demote 24 and merge it with 16 and 28 to form a 4-node:
+      </p><div class="figure"><a id="merge-2-nodes-b"></a><p class="title"><b>Figure 7. one 4-node</b></p><div class="figure-contents"><div class="mediaobject"><img src="23-4-node.png" alt="a 2-node or 3-node followed by one 4-node" /></div></div></div><p><br class="figure-break" />
+      If we do this in a RBtree, this process can be illustrated as from <a class="xref" href="index.html#delete-2-2-a" title="Figure 8. Red-Black Tree sample C : two 2-nodes">Figure 8, “Red-Black Tree sample C : two 2-nodes”</a> to <a class="xref" href="index.html#delete-2-2-b" title="Figure 9. Red-Black Tree sample C : one 4-node">Figure 9, “Red-Black Tree sample C : one 4-node”</a>.
+      </p><div class="figure"><a id="delete-2-2-a"></a><p class="title"><b>Figure 8. Red-Black Tree sample C : two 2-nodes</b></p><div class="figure-contents"><div class="mediaobject"><img src="delete-2-2-a.png" alt="An Red-Black Tree illustration." /><div class="caption"><p>Nodes 2, 4 and 6 are gray, implying that we don't care about their colors.</p></div></div></div></div><p><br class="figure-break" />
+      </p><div class="figure"><a id="delete-2-2-b"></a><p class="title"><b>Figure 9. Red-Black Tree sample C : one 4-node</b></p><div class="figure-contents"><div class="mediaobject"><img src="delete-2-2-b.png" alt="An Red-Black Tree illustration." /></div></div></div><p><br class="figure-break" />
+      In <a class="xref" href="index.html#delete-2-2-a" title="Figure 8. Red-Black Tree sample C : two 2-nodes">Figure 8, “Red-Black Tree sample C : two 2-nodes”</a>, if node 4 is Red, which means {4,8,24} is a 4-node,
+      then we have got a 3-node {4,8} followed by a 4-node {16,24,28} in <a class="xref" href="index.html#delete-2-2-b" title="Figure 9. Red-Black Tree sample C : one 4-node">Figure 9, “Red-Black Tree sample C : one 4-node”</a>.
+      If node 4 is Black, we have got a 2-node 8. However, if node 4 is Black, there are two different ways to represent a 3-node {8,24} (see <a class="xref" href="index.html#transform" title="2-3-4 Tree, transform!">2-3-4 Tree, transform!</a>).
+      Let's see the other way to do represent <a class="xref" href="index.html#delete-2-2-a" title="Figure 8. Red-Black Tree sample C : two 2-nodes">Figure 8, “Red-Black Tree sample C : two 2-nodes”</a>:
+      </p><div class="figure"><a id="delete-2-2-c"></a><p class="title"><b>Figure 10. Red-Black Tree sample C : variant of two 2-nodes</b></p><div class="figure-contents"><div class="mediaobject"><img src="delete-2-2-c.png" alt="An Red-Black Tree illustration." /></div></div></div><p><br class="figure-break" />
+      This is kinda weird, since 16 and 28 are not literally siblings in this RBtree while essentially they are.
+      So let's transform it: perform RotR(24) and we'll turn <a class="xref" href="index.html#delete-2-2-c" title="Figure 10. Red-Black Tree sample C : variant of two 2-nodes">Figure 10, “Red-Black Tree sample C : variant of two 2-nodes”</a> to <a class="xref" href="index.html#delete-2-2-a" title="Figure 8. Red-Black Tree sample C : two 2-nodes">Figure 8, “Red-Black Tree sample C : two 2-nodes”</a>.
+      </p><p>
+      Actually we should always perform a rotation if the parent is not Red. We prefer Red because a Red node has a very useful property:
+      its children in a RBtree representation are siblings in the corresponding 2-3-4 tree.
+      Black nodes don't have this property.
+      For example, in <a class="xref" href="index.html#delete-2-2-c" title="Figure 10. Red-Black Tree sample C : variant of two 2-nodes">Figure 10, “Red-Black Tree sample C : variant of two 2-nodes”</a>, the Black node 24 has two children 8 and 28, but essentially 8 is not its child, 8's children 4 and 16 are.
+      In the meanwhile, if we see a Red node, we know for sure that its children are literally and essentially its children.
+      You will find this property can simplify our thinking process and the operation.
+      Therefore, from now on, we will assume the parent of the current node is Red. If it is not, we can always perform a rotation to make it Red.
+      Don't forget that the parent is not a 2-node, so if the parent is Black, a rotation will undoubtedly make you a Red one.
+      </p><p>
+	OK, you've seen a 2-node sibling is quite easy to handle. What if the sibling is 3-node or 4-node? Let's see <a class="xref" href="index.html#delete-34-2-a" title="Figure 11. a 3-node or 4-node sibling">Figure 11, “a 3-node or 4-node sibling”</a>.
+	</p><div class="figure"><a id="delete-34-2-a"></a><p class="title"><b>Figure 11. a 3-node or 4-node sibling</b></p><div class="figure-contents"><div class="mediaobject"><img src="34-34-2-node.png" alt="An Red-Black Tree illustration." /></div></div></div><p><br class="figure-break" />
+	Node J is a 2-node. We want to change it. Its parent is {?,H} or {?,?,H} and its sibling is {D,F} or {?,D,F}.
+	Ah, the sibling is very crowded, why not borrowing some stuff from it?
+	Let's borrow its rightmost part, F and the subtree rooted by G, so that the sibling becomes a 2-node {D} or 3-node {?,D}. Then we rearrange F, G and H:
+	</p><div class="figure"><a id="delete-34-2-b"></a><p class="title"><b>Figure 12. borrowed stuff from the sibling</b></p><div class="figure-contents"><div class="mediaobject"><img src="34-23-3-node.png" alt="An Red-Black Tree illustration." /></div></div></div><p><br class="figure-break" />
+      </p><p>
+	This looks very good. Let's apply it to a real example in the Red-Black realm:
+	</p><div class="figure"><a id="delete-3-2-a"></a><p class="title"><b>Figure 13. Red-Black Tree sample D</b></p><div class="figure-contents"><div class="mediaobject"><img src="delete-3-2-a.png" alt="An Red-Black Tree illustration." /></div></div></div><p><br class="figure-break" />
+	Suppose we're deleting 26 from it. When we reach 28, we find it a 2-node. Then we realize its sibling is a 3-node {12,16} with 3 children: 10, 14 and {18,20,22}.
+	Now we borrow the sibling's rightmost part, 16 and {18,20,22}, then rearrange them:
+	</p><div class="figure"><a id="delete-3-2-b"></a><p class="title"><b>Figure 14. Red-Black Tree sample D</b></p><div class="figure-contents"><div class="mediaobject"><img src="delete-3-2-b.png" alt="An Red-Black Tree illustration." /></div></div></div><p><br class="figure-break" />
+	As you can see, this "rearrangement" is actually a Right-Rotation with some re-coloring. No big deal, just a rotation.
+	</p><p>
+	Now we have a 3-node {24,28} with 3 children {18,20,22}, 26 and 30. Then we will move on.
+	When we reach 26, we find it is a 2-node, but fortunately its sibling 30 is a 2-node too.
+	So we flip:
+	</p><div class="figure"><a id="delete-3-2-c"></a><p class="title"><b>Figure 15. Red-Black Tree sample D</b></p><div class="figure-contents"><div class="mediaobject"><img src="delete-3-2-c.png" alt="An Red-Black Tree illustration." /></div></div></div><p><br class="figure-break" />
+	Now we have a Red 26. Just delete it
+	
+	  
+	  </p><div class="mediaobject"><img src="delete-3-2-d.png" alt="An Red-Black Tree illustration." /></div><p>
+	
+	and we're done.
+      </p><p>
+	The key point here is to borrow the rightmost part of the sibling and rearrange it.
+	However, the position of the rightmost part of a 3-node or 4-node depends on the concrete Red-Black representation.
+	So we must be very careful.
+	Let's look at this example:
+	</p><div class="figure"><a id="delete-3-2-e"></a><p class="title"><b>Figure 16. Red-Black Tree sample E</b></p><div class="figure-contents"><div class="mediaobject"><img src="delete-3-2-e.png" alt="An Red-Black Tree illustration." /></div></div></div><p><br class="figure-break" />
+	In <a class="xref" href="index.html#delete-3-2-a" title="Figure 13. Red-Black Tree sample D">Figure 13, “Red-Black Tree sample D”</a>, if a pointer <code class="literal">p</code> points to 28,
+	then the rightmost part of <code class="literal">p</code>'s sibling is <code class="literal">p-&gt;parent-&gt;left</code> and the subtree rooted by <code class="literal">p-&gt;parent-&gt;left-&gt;right</code>,
+	but here in <a class="xref" href="index.html#delete-3-2-e" title="Figure 16. Red-Black Tree sample E">Figure 16, “Red-Black Tree sample E”</a>,
+	the rightmost part would be <code class="literal">p-&gt;parent-&gt;left-&gt;right</code> and the subtree rooted by <code class="literal">p-&gt;parent-&gt;left-&gt;right-&gt;right</code>.
+	</p><p>
+	  This complication can be solved easily. We can Left-Rotate <code class="literal">p-&gt;parent-&gt;left</code> and
+	  the situation becomes as the same as that in <a class="xref" href="index.html#delete-3-2-a" title="Figure 13. Red-Black Tree sample D">Figure 13, “Red-Black Tree sample D”</a>:
+	</p><div class="figure"><a id="delete-3-2-f"></a><p class="title"><b>Figure 17. Red-Black Tree sample E</b></p><div class="figure-contents"><div class="mediaobject"><img src="delete-3-2-f.png" alt="An Red-Black Tree illustration." /></div></div></div><p><br class="figure-break" />
+	Now the rightmost part of 28's sibling is 20 and 22, which are 28's parent's left child and 28's parent's left child's right subtree.
+	You may want to compare it with <a class="xref" href="index.html#delete-3-2-a" title="Figure 13. Red-Black Tree sample D">Figure 13, “Red-Black Tree sample D”</a>.
+	</p><p>
+	The next step will be simple for us. Perform RotR(24) and do some re-coloring:
+	  </p><div class="figure"><a id="delete-3-2-g"></a><p class="title"><b>Figure 18. Red-Black Tree sample E</b></p><div class="figure-contents"><div class="mediaobject"><img src="delete-3-2-g.png" alt="An Red-Black Tree illustration." /></div></div></div><p><br class="figure-break" />
+	  Now 28 is not a 2-node anymore.
+	</p><p>
+	  A 3-node sibling has been solved.
+	  Let's move on to see a 4-node:
+	  </p><div class="figure"><a id="delete-4-2-a"></a><p class="title"><b>Figure 19. Red-Black Tree sample F</b></p><div class="figure-contents"><div class="mediaobject"><img src="delete-4-2-a.png" alt="An Red-Black Tree illustration." /></div></div></div><p><br class="figure-break" />
+	  Still, we want to delete 28 and it's a 2-node.
+	  Its sibling is a 4-node {12,16,20}, and the rightmost part of this 4-node is 20 and the subtree rooted by 22.
+	  This situation is quite like <a class="xref" href="index.html#delete-3-2-e" title="Figure 16. Red-Black Tree sample E">Figure 16, “Red-Black Tree sample E”</a>, so let's try the same manipulation, that is, to Left-Rotation 16:
+	  </p><div class="figure"><a id="delete-4-2-b"></a><p class="title"><b>Figure 20. Red-Black Tree sample F</b></p><div class="figure-contents"><div class="mediaobject"><img src="delete-4-2-b.png" alt="An Red-Black Tree illustration." /></div></div></div><p><br class="figure-break" />
+	  There appear two Red in a row. Don't panic, it's just Case.2 of The Gang of Five!
+	  Next we do the same rotation and re-coloring as we applied to <a class="xref" href="index.html#delete-3-2-e" title="Figure 16. Red-Black Tree sample E">Figure 16, “Red-Black Tree sample E”</a>:
+	  </p><div class="figure"><a id="delete-4-2-c"></a><p class="title"><b>Figure 21. Red-Black Tree sample F</b></p><div class="figure-contents"><div class="mediaobject"><img src="delete-4-2-c.png" alt="An Red-Black Tree illustration." /></div></div></div><p><br class="figure-break" />
+	  Bingo! Things are done! I said we can make good use of The Gang of Five, and you see, I didn't lie.
+	</p><p>
+	  We're almost done with all the possibilities, except one situation: what if the root is a 2-node?
+	  All the methods we have discussed use the sibling to help, but the root doesn't have any sibling.
+	  Fortunately, this can be solved easily by set the root Red as if it is a part of a 3-node or 4-node.
+	  After the deletion is finished, we can set the root back to Black (if it is still Red) without violating any RBtree rules.
+	  The reason why this works remains for you to figure out.
+	</p><div class="section" title="Implementation of Deletion"><div class="titlepage"><div><div><h3 class="title"><a id="id2839182"></a>Implementation of Deletion</h3></div></div></div><p>
+      Now you have learned all the tricks to transform a RBtree so that we won't end up with a 2-node leaf. It time to code.
+    </p><pre class="programlisting">
+#define hL		(h-&gt;L)
+#define hR		(h-&gt;R)
+#define hLL		(h-&gt;L-&gt;L)
+#define hLR		(h-&gt;L-&gt;R)
+#define hRL		(h-&gt;R-&gt;L)
+#define hRR		(h-&gt;R-&gt;R)
+#define chg_rb(x)	do{(x)-&gt;rb = ((x)-&gt;rb == R) ? B : R;}while(0);
+void flip(NODE * h)
+{
+	assert(h != nil &amp;&amp; hL != nil &amp;&amp; hR != nil);
+	assert(h-&gt;rb == R);
+
+	/* h's left  child must be a 2-node */
+	assert(hL-&gt;rb == B &amp;&amp; hLL-&gt;rb == B &amp;&amp; hLR-&gt;rb == B);
+
+	/* h's right child must be a 2-node */
+	assert(hR-&gt;rb == B &amp;&amp; hRL-&gt;rb == B &amp;&amp; hRR-&gt;rb == B);
+
+	h-&gt;rb = B;
+	hL-&gt;rb = R;
+	hR-&gt;rb = R;
+}
+NODE * RBdelete(NODE * h, int v)
+{
+	assert(h != nil);
+
+	if (h == root &amp;&amp; hL-&gt;rb == B &amp;&amp; hR-&gt;rb == B)
+		h-&gt;rb = R;
+
+	if (h-&gt;val == v) {
+		if (hL == nil || hR == nil) {
+			NODE * x;
+			if (hL != nil)
+				x = hL;
+			else
+				x = hR;
+			if (x != nil)
+				x-&gt;P = h-&gt;P;
+			if (h-&gt;P == nil) {
+				assert(h == root-&gt;L);
+				return nil;
+			} else if (h == h-&gt;P-&gt;L)
+				h-&gt;P-&gt;L = x;
+			else
+				h-&gt;P-&gt;R = x;
+
+			if (h-&gt;rb == B) {
+				assert(x-&gt;rb == R);
+				x-&gt;rb = B;
+			}
+			free_node(h);
+			return x;
+		} else {
+			NODE * x;
+			for (x = hR; x-&gt;L != nil; x = x-&gt;L) {}
+			h-&gt;val = x-&gt;val;
+			v = x-&gt;val;
+		}
+	}
+
+	/* It's possible to get here even if the ``v'' has been found:
+	 *         when (h has two children) and (SUCCESSOR(h)-&gt;val == v).
+	 * Therefore, we'd use (h-&gt;val &lt;= v), not (h-&gt;val &lt; v).
+	 */
+	if (h-&gt;val &lt;= v) {
+		assert(hR != nil);
+
+		/* transform if the right child is a 2-node */
+		if (hR-&gt;rb == B &amp;&amp; hRL-&gt;rb == B &amp;&amp; hRR-&gt;rb == B) {
+			if (h-&gt;rb == B) {
+				assert(hL-&gt;rb == R);
+				h = rotR(h);
+				chg_rb(h);
+				chg_rb(hR);
+			} else {
+				assert(h-&gt;rb == R);
+				if (hL-&gt;rb == B &amp;&amp; hLL-&gt;rb == B &amp;&amp; hLR-&gt;rb == B) {
+					flip(h);
+				} else {
+					if (hLR-&gt;rb == B) {
+						h = rotR(h);
+						chg_rb(h);
+						chg_rb(hL);
+						chg_rb(hR);
+						chg_rb(hRR);
+					} else {
+						hL= rotL(hL);
+						h = rotR(h);
+						chg_rb(hR);
+						chg_rb(hRR);
+					}
+				}
+			}
+		}
+		assert(hR-&gt;rb == R || hRL-&gt;rb == R || hRR-&gt;rb == R);
+
+		hR = RBdelete(hR, v);
+	} else if (v &lt; h-&gt;val) {
+		assert(hL != nil);
+		/* transform if the left child is a 2-node */
+		if (hL-&gt;rb == B &amp;&amp; hLL-&gt;rb == B &amp;&amp; hLR-&gt;rb == B) {
+			if (h-&gt;rb == B) {
+				assert(hR-&gt;rb == R);
+				h = rotL(h);
+				chg_rb(h);
+				chg_rb(hL);
+			} else {
+				assert(h-&gt;rb == R);
+				if (hR-&gt;rb == B &amp;&amp; hRL-&gt;rb == B &amp;&amp; hRR-&gt;rb == B) {
+					flip(h);
+				} else {
+					if (hRL-&gt;rb == B) {
+						h = rotL(h);
+						chg_rb(h);
+						chg_rb(hR);
+						chg_rb(hL);
+						chg_rb(hLL);
+					} else {
+						hR= rotR(hR);
+						h = rotL(h);
+						chg_rb(hL);
+						chg_rb(hLL);
+					}
+				}
+			}
+		}
+		/* the left child is no longer a 2-node */
+		assert(!(hL-&gt;rb == B &amp;&amp; hLL-&gt;rb == B &amp;&amp; hLR-&gt;rb == B));
+
+		hL = RBdelete(hL, v);
+	}
+	return h;
+}
+void rb_delete(int v)
+{
+	root = RBdelete(root, v);
+	root-&gt;rb = B;
+}
+</pre></div></div><div class="section" title="More you should know"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="id2839262"></a>More you should know</h2></div></div></div><p>
+      Most algorithm books introduce Red-Black tree.
+      There is a whole chapter introducing Red-Black Tree in <a class="ulink" href="http://en.wikipedia.org/wiki/Introduction_to_Algorithms" target="_top">CLRS</a>,
+      but I do not recommend it as your first material to read.
+      If you want to read a <span class="emphasis"><em>book</em></span> after reading this tutorial, Robert Sedgewick's <a class="ulink" href="http://www.amazon.com/Algorithms-Parts-1-4-Fundamentals-Structures/dp/0201314525" target="_top">Algorithm in C</a> is a good choice.
+      This tutorial was inspired by it.
+    </p><p>
+      There are many ways to implement a Red-Black tree. The methods introduced in this tutorial are just one of them.
+      You are encouraged to read more and see what others think and do.
+    </p><p>
+      Many believe that using a link array (e.g. <code class="literal">NODE * link[2];</code>) in the node <code class="literal">struct</code> is better
+      than using two different links <code class="literal">NODE * L</code> and <code class="literal">NODE * R</code>.
+      As you've seen, we must distinguish between left and right in the code above and the code blocks manipulating left and right look very similar,
+      which may seem a little unwise.
+      With <code class="literal">link[2]</code>, we can use a variable <code class="literal">direction</code> which can be <code class="literal">0</code> or <code class="literal">1</code> so that
+      the left and right cases can be manipulated in one code block.
+      Nevertheless, the advantage gained from shorter code may be neutralized by it's being hard to write and read,
+      since direction denoted by <code class="literal">0</code> and <code class="literal">1</code> is not as intuitive as <code class="literal">L</code> and <code class="literal">R</code>.
+      If interested, you can rewrite the code with <code class="literal">link[2]</code> by yourself.
+    </p></div><div class="section" title="About this tutorial"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="id2839380"></a>About this tutorial</h2></div></div></div><p>
+      Insersion and deletion in Red-Black Trees are known as hard to understand.
+      This tutorial tries to explain the key points hidden behind the the tricks.
+      Hopefully it will help.
+      If you feel it so good or so bad that you wanna tell me something, please send email to forrest.yu[AT]Gmail.com.
+    </p></div><div class="section" title="Reference(s)"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="id2839394"></a>Reference(s)</h2></div></div></div><p>Robert Sedgewick, Algorithms in C, Parts 1-4 (Fundamental Algorithms, Data Structures, Sorting, Searching)</p></div><div class="section" title="Exercises"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="id2839404"></a>Exercises</h2></div></div></div><p>Prepare pencile and paper before doing the exercises. No computer is needed to finish them.</p><div class="section" title="Exercise 1"><div class="titlepage"><div><div><h3 class="title"><a id="ex1"></a>Exercise 1</h3></div></div></div><p>Draw the process of inserting 9 into <a class="xref" href="index.html#before-insertion-3" title="Figure 1. Red-Black Tree sample A">Figure 1, “Red-Black Tree sample A”</a>.</p><p>Is flipping needed? If so, when should it performed? Is transformation needed? If so, when should it performed?</p><p><a class="link" href="index.html#sol1" title="Solution to Exercise 1">Go to solution of Exercise 1</a></p></div><div class="section" title="Exercise 2"><div class="titlepage"><div><div><h3 class="title"><a id="ex2"></a>Exercise 2</h3></div></div></div><p>
+	  Draw the process of inserting 27 into <a class="xref" href="index.html#before-inserting-27" title="Figure 22. Red-Black Tree sample B">Figure 22, “Red-Black Tree sample B”</a>.
+	  </p><div class="figure"><a id="before-inserting-27"></a><p class="title"><b>Figure 22. Red-Black Tree sample B</b></p><div class="figure-contents"><div class="mediaobject"><img src="insert-27-a.png" alt="An Red-Black Tree illustration." /></div></div></div><p><br class="figure-break" />
+	</p><p>Is flipping needed? If so, when should it performed? Is transformation needed? If so, when should it performed?</p><p><a class="link" href="index.html#sol2" title="Solution to Exercise 2">Go to solution of Exercise 2</a></p></div><div class="section" title="Exercise 3"><div class="titlepage"><div><div><h3 class="title"><a id="ex3"></a>Exercise 3</h3></div></div></div><p>Draw the process of inserting 21 into <a class="xref" href="index.html#before-inserting-27" title="Figure 22. Red-Black Tree sample B">Figure 22, “Red-Black Tree sample B”</a>.</p><p>Is flipping needed? If so, when should it performed? Is transformation needed? If so, when should it performed?</p><p><a class="link" href="index.html#sol3" title="Solution to Exercise 3">Go to solution of Exercise 3</a></p></div><div class="section" title="Exercise 4"><div class="titlepage"><div><div><h3 class="title"><a id="ex4"></a>Exercise 4</h3></div></div></div><p>What if the 2-3-4 root is a 4-node when doing insertion?</p><p><a class="link" href="index.html#sol4" title="Solution to Exercise 4">Go to solution of Exercise 4</a></p></div></div><div class="section" title="Solutions"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="id2839541"></a>Solutions</h2></div></div></div><p>The following are the solutions of the exercises.</p><div class="section" title="Solution to Exercise 1"><div class="titlepage"><div><div><h3 class="title"><a id="sol1"></a>Solution to Exercise 1</h3></div></div></div><p><a class="link" href="index.html#ex1" title="Exercise 1">Go back to Exercise 1</a></p><p>
+	  When going downwards, we will find a 4-node {10,12,14} and flip it:
+	  </p><div class="mediaobject"><img src="insert-9-a.png" alt="An Red-Black Tree illustration." /></div><p>
+	  Then we insert 9 as 10's left child:
+	  </p><div class="mediaobject"><img src="insert-9-b.png" alt="An Red-Black Tree illustration." /></div><p>
+	  This is Case.4 of The Gang of Five, so let's RotL(8):
+	  </p><div class="mediaobject"><img src="insert-9-c.png" alt="An Red-Black Tree illustration." /></div><p>
+	  Then RotR(16):
+	  </p><div class="mediaobject"><img src="insert-9-d.png" alt="An Red-Black Tree illustration." /></div><p>
+	  Done.
+	</p><p><a class="link" href="index.html#ex1" title="Exercise 1">Go back to Exercise 1</a></p></div><div class="section" title="Solution to Exercise 2"><div class="titlepage"><div><div><h3 class="title"><a id="sol2"></a>Solution to Exercise 2</h3></div></div></div><p><a class="link" href="index.html#ex2" title="Exercise 2">Go back to Exercise 2</a></p><p>
+	  When we go downwards, we will find a 4-node {26,28,30} and flip it:
+	  </p><div class="mediaobject"><img src="insert-27-b.png" alt="An Red-Black Tree illustration." /></div><p>
+	  Then we insert 27 as 26's right child:
+	  </p><div class="mediaobject"><img src="insert-27-c.png" alt="An Red-Black Tree illustration." /></div><p>
+	  When we go upwards and reach 16:
+	  </p><div class="mediaobject"><img src="insert-27-d.png" alt="An Red-Black Tree illustration." /></div><p>
+	  We find this is Case.3 of The Gang of Five, so let's RotL(16):
+	  </p><div class="mediaobject"><img src="insert-27-e.png" alt="An Red-Black Tree illustration." /></div><p>
+	  Done.
+	</p><p><a class="link" href="index.html#ex2" title="Exercise 2">Go back to Exercise 2</a></p></div><div class="section" title="Solution to Exercise 3"><div class="titlepage"><div><div><h3 class="title"><a id="sol3"></a>Solution to Exercise 3</h3></div></div></div><p><a class="link" href="index.html#ex3" title="Exercise 3">Go back to Exercise 3</a></p><p>
+	  When we go downwards, we will find a 4-node {18,20,22} and flip it:
+	  </p><div class="mediaobject"><img src="insert-21-a.png" alt="An Red-Black Tree illustration." /></div><p>
+	  Then we insert 21 as 22's left child:
+	  </p><div class="mediaobject"><img src="insert-21-b.png" alt="An Red-Black Tree illustration." /></div><p>
+	  When going upwards, we find this is Case.5 of The Gang of Five, so we RotR(24):
+	  </p><div class="mediaobject"><img src="insert-21-c.png" alt="An Red-Black Tree illustration." /></div><p>
+	  Then RotL(16):
+	  </p><div class="mediaobject"><img src="insert-21-d.png" alt="An Red-Black Tree illustration." /></div><p>
+	  Done.
+	</p><p><a class="link" href="index.html#ex3" title="Exercise 3">Go back to Exercise 3</a></p></div><div class="section" title="Solution to Exercise 4"><div class="titlepage"><div><div><h3 class="title"><a id="sol4"></a>Solution to Exercise 4</h3></div></div></div><p><a class="link" href="index.html#ex4" title="Exercise 4">Go back to Exercise 4</a></p><p>
+	  If the 2-3-4 tree root is a 4-node, we will set the corresponding RBtree root as Red first,
+	  then set it back to Black before the end of <code class="literal">rb_insert()</code>.
+	</p><p><a class="link" href="index.html#ex4" title="Exercise 4">Go back to Exercise 4</a></p></div></div></div><div class="navfooter"><hr /></div></body></html>

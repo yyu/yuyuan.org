@@ -1,0 +1,37 @@
+
+.book-abstract-left {
+	margin:0px;
+	padding:10px;
+	font-size:0.75em;
+	font-style:oblique;
+	float:left;
+	/* display:block; */
+	/* width:200px; */
+	/* border-style:solid; */
+	/* border-width:2px; */
+	/* border-color:red; */
+	margin-right:50px }
+
+img {
+	padding:0px;
+	/* border-style:solid; */
+	/* border-width:2px; */
+	/* border-color:orange; */
+	margin:0px }
+
+li.narrow {
+	list-style-type:none;
+	/* border-style:solid; */
+	/* border-width:2px; */
+	/* border-color:blue; */
+	padding:0 }
+
+ul.narrow {
+	width:140px;
+	/* border-style:solid; */
+	/* border-width:2px; */
+	/* border-color:yellow; */
+	padding:0 }
+
+.bookdesc {clear:both}
+

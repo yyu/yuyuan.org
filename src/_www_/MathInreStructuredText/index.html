@@ -1,0 +1,948 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.7: http://docutils.sourceforge.net/" />
+<title>Math in reStructuredText</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 6253 2010-03-02 00:24:53Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: left }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="math-in-restructuredtext">
+<h1 class="title">Math in reStructuredText</h1>
+
+<!-- comments
+.. sidebar:: Contents -->
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+<link rel="stylesheet" href="math.css" type="text/css"><div class="contents topic" id="table-of-contents">
+<p class="topic-title first">Table of Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#math-in-browser" id="id25">Math in Browser</a><ul>
+<li><a class="reference internal" href="#solution-1-mathml" id="id26">Solution 1: MathML</a></li>
+<li><a class="reference internal" href="#solution-2-javascript-css" id="id27">Solution 2: JavaScript + CSS</a></li>
+<li><a class="reference internal" href="#solution-3-image" id="id28">Solution 3: Image</a></li>
+<li><a class="reference internal" href="#comparison-of-solutions" id="id29">Comparison of solutions</a></li>
+<li><a class="reference internal" href="#my-choice" id="id30">My Choice</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#use-mathjax-in-restructuredtext" id="id31">Use MathJax in reStructuredText</a></li>
+<li><a class="reference internal" href="#use-mathjax-in-a-django-project" id="id32">Use MathJax in a Django project</a><ul>
+<li><a class="reference internal" href="#use-a-custom-module-for-our-custom-stuff" id="id33">Use a custom module for our custom stuff</a></li>
+<li><a class="reference internal" href="#add-a-new-role-mil" id="id34">Add a new role <tt class="docutils literal">mil</tt></a></li>
+<li><a class="reference internal" href="#add-new-directive-math-and-new-role-eq" id="id35">Add new directive <tt class="docutils literal">math</tt> and new role <tt class="docutils literal">eq</tt></a></li>
+<li><a class="reference internal" href="#write-a-custom-django-filter" id="id36">Write a custom Django filter</a></li>
+<li><a class="reference internal" href="#use-the-new-filter" id="id37">Use the new filter</a></li>
+<li><a class="reference internal" href="#write-math-in-django" id="id38">Write math in Django</a></li>
+<li><a class="reference internal" href="#get-the-code" id="id39">Get the code</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#extra-readings" id="id40">Extra readings</a><ul>
+<li><a class="reference internal" href="#future-release-of-docutils-may-support-rm-latex-math" id="id41">future release of docutils may support <span class="mathjaxlatex">\(\rm \LaTeX\)</span> math</a></li>
+<li><a class="reference internal" href="#jsxgraph" id="id42">JSXGraph</a></li>
+<li><a class="reference internal" href="#gmailtex" id="id43">GMailTeX</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="math-in-browser">
+<h1><a class="toc-backref" href="#id25">Math in Browser</a></h1>
+<p>There are many ways to embed math formulas into a web page.</p>
+<div class="section" id="solution-1-mathml">
+<h2><a class="toc-backref" href="#id26">Solution 1: MathML</a></h2>
+<p>MathML is a W3C Recommendation <a class="footnote-reference" href="#w3cmath" id="id1">[1]</a>, so you might guess it is the best choice, but it is not,
+because it is not supported well by the major web browsers <a class="footnote-reference" href="#mmlsupport" id="id2">[2]</a> (see <a class="footnote-reference" href="#mmltest" id="id3">[3]</a>).</p>
+<p>If you want to use MathML, you still have a decision to make: do you want to write the MathML code by yourself?</p>
+<p>If you decide to write your formulas in MathML directly, it's OK. However, you don't have to write it if you don't want to.
+Instead, you can write in <span class="mathjaxlatex">\(\rm \LaTeX\)</span> and convert it into MathML using tools such as itex2MML <a class="footnote-reference" href="#itex2mml" id="id4">[4]</a>.</p>
+<table class="docutils footnote" frame="void" id="w3cmath" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://www.w3.org/Math/">http://www.w3.org/Math/</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="mmlsupport" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/MathML#Web_browsers">http://en.wikipedia.org/wiki/MathML#Web_browsers</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="mmltest" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td><a class="reference external" href="http://www.w3.org/Math/testsuite/">http://www.w3.org/Math/testsuite/</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="itex2mml" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[4]</a></td><td><a class="reference external" href="http://golem.ph.utexas.edu/~distler/blog/itex2MML.html">http://golem.ph.utexas.edu/~distler/blog/itex2MML.html</a></td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="solution-2-javascript-css">
+<h2><a class="toc-backref" href="#id27">Solution 2: JavaScript + CSS</a></h2>
+<p>The fact that HTML is not <span class="mathjaxlatex">\(\rm \LaTeX\)</span>-friendly does not mean that web browsers are not <span class="mathjaxlatex">\(\rm \LaTeX\)</span>-friendly,
+because browsers are powered by JavaScript and CSS.
+JavaScript can parse <span class="mathjaxlatex">\(\rm \LaTeX\)</span> codes and render them with the help of CSS, which can display really fancy math in a browser.
+MathJax <a class="footnote-reference" href="#mathjax" id="id5">[5]</a> is such a tool.
+All you have to do is to insert a line in your HTML:</p>
+<pre class="literal-block">
+&lt;script type=&quot;text/javascript&quot; src=&quot;http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&quot;&gt; &lt;/script&gt;
+</pre>
+<p>Then you can write Math in <span class="mathjaxlatex">\(\rm \LaTeX\)</span> now:</p>
+<pre class="literal-block">
+\[ \frac{1}{\Bigl(\sqrt{\phi \sqrt{5}}-\phi\Bigr) e^{\frac25 \pi}} =
+1+\frac{e^{-2\pi}} {1+\frac{e^{-4\pi}} {1+\frac{e^{-6\pi}}
+{1+\frac{e^{-8\pi}} {1+\ldots} } } } \]
+</pre>
+<p>This will be rendered as</p>
+<div class="mathjaxlatex">
+\[\frac{1}{\Bigl(\sqrt{\phi \sqrt{5}}-\phi\Bigr) e^{\frac25 \pi}} =
+1+\frac{e^{-2\pi}} {1+\frac{e^{-4\pi}} {1+\frac{e^{-6\pi}}
+{1+\frac{e^{-8\pi}} {1+\ldots} } } }\]</div>
+<p>More demos can be found on the official MathJax website <a class="footnote-reference" href="#mathjaxsamples" id="id6">[6]</a>.</p>
+<p>Please note that MathJax can convert <span class="mathjaxlatex">\(\rm \LaTeX\)</span> into MathML too, so choosing MathJax means you get the flexibility to switch between CSS and MathML.</p>
+<p>In fact MathJax is not the only JS+CSS solution. There are other similar tools, such as jsMath <a class="footnote-reference" href="#jsmath" id="id7">[7]</a> <a class="footnote-reference" href="#wikijsmath" id="id8">[8]</a> and jqMath <a class="footnote-reference" href="#jqmath" id="id9">[9]</a>.</p>
+<p>jsMath seems the predecessor of MathJax (from Wikipedia <a class="footnote-reference" href="#wikimathjax" id="id10">[10]</a>):</p>
+<blockquote>
+<p>The MathJax project started in 2009 as the successor to an earlier JavaScript mathematics formatting library, jsMath, and
+is managed by Design Science. The project is sponsored by the American Mathematical Society, Design Science, and the Society
+for Industrial and Applied Mathematics and is supported by the American Physical Society, Elsevier, and Project Euclid.</p>
+<p>MathJax is used by web sites including MathSciNet, GitHub, n-category cafe, Math Overflow, Project Euclid journals, and the
+All-Russian Mathematical Portal.</p>
+</blockquote>
+<table class="docutils footnote" frame="void" id="mathjax" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id5">[5]</a></td><td><a class="reference external" href="http://www.mathjax.org">http://www.mathjax.org</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="mathjaxsamples" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id6">[6]</a></td><td><a class="reference external" href="http://www.mathjax.org/demos/tex-samples/">http://www.mathjax.org/demos/tex-samples/</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="jsmath" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id7">[7]</a></td><td><a class="reference external" href="http://www.math.union.edu/~dpvc/jsmath/">http://www.math.union.edu/~dpvc/jsmath/</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="wikijsmath" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id8">[8]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/JsMath">http://en.wikipedia.org/wiki/JsMath</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="jqmath" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id9">[9]</a></td><td><a class="reference external" href="http://mathscribe.com/author/jqmath.html">http://mathscribe.com/author/jqmath.html</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="wikimathjax" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id10">[10]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/Mathjax">http://en.wikipedia.org/wiki/Mathjax</a></td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="solution-3-image">
+<h2><a class="toc-backref" href="#id28">Solution 3: Image</a></h2>
+<p>Almost all browsers support images, so if you don't trust anything (like MathML, MathJax, etc.), use images.</p>
+<p>There are many tools that can convert <span class="mathjaxlatex">\(\rm \LaTeX\)</span> into images, such as
+Mathhack <a class="footnote-reference" href="#mathhack" id="id11">[11]</a>,
+LatexFormulaMacro <a class="footnote-reference" href="#latexformulamacro" id="id12">[12]</a>,
+django_mathlatex <a class="footnote-reference" href="#django-mathlatex" id="id13">[13]</a> (if you use Django),
+etc.</p>
+<table class="docutils footnote" frame="void" id="mathhack" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id11">[11]</a></td><td><a class="reference external" href="http://docutils.sourceforge.net/sandbox/cben/rolehack/">http://docutils.sourceforge.net/sandbox/cben/rolehack/</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="latexformulamacro" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id12">[12]</a></td><td><a class="reference external" href="http://trac-hacks.org/wiki/LatexFormulaMacro">http://trac-hacks.org/wiki/LatexFormulaMacro</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="django-mathlatex" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id13">[13]</a></td><td><a class="reference external" href="https://github.com/emesik/django_mathlatex">https://github.com/emesik/django_mathlatex</a></td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="comparison-of-solutions">
+<h2><a class="toc-backref" href="#id29">Comparison of solutions</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="12%" />
+<col width="14%" />
+<col width="19%" />
+<col width="25%" />
+<col width="31%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">option</th>
+<th class="head">web browser support</th>
+<th class="head">look the same in browsers?</th>
+<th class="head">usage</th>
+<th class="head">users</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>MathML</td>
+<td>poor</td>
+<td>no</td>
+<td>embed MathML into HTML</td>
+<td>currently no website really uses it</td>
+</tr>
+<tr><td>Image</td>
+<td>perfect</td>
+<td>yes</td>
+<td>make images and embed them in HTML</td>
+<td><ul class="first last simple">
+<li>Wikipedia</li>
+</ul>
+</td>
+</tr>
+<tr><td>MathJax (JS+CSS)</td>
+<td>very good</td>
+<td>almost yes</td>
+<td>embed <span class="mathjaxlatex">\(\rm \LaTeX\)</span> in HTML</td>
+<td><ul class="first last simple">
+<li>StackExchange <a class="footnote-reference" href="#stackexchange" id="id14">[14]</a></li>
+<li>CERN document server <a class="footnote-reference" href="#cern" id="id15">[15]</a>, <a class="footnote-reference" href="#cern1" id="id16">[16]</a></li>
+<li>The Annals of Mathematics <a class="footnote-reference" href="#princeton" id="id17">[17]</a></li>
+<li>etc. <a class="footnote-reference" href="#mathjaxinuse" id="id18">[18]</a></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="stackexchange" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[14]</td><td><em>(<a class="fn-backref" href="#id14">1</a>, <a class="fn-backref" href="#id20">2</a>)</em> <a class="reference external" href="http://math.stackexchange.com/">http://math.stackexchange.com/</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="cern" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[15]</td><td><em>(<a class="fn-backref" href="#id15">1</a>, <a class="fn-backref" href="#id21">2</a>)</em> <a class="reference external" href="http://cdsweb.cern.ch/">http://cdsweb.cern.ch/</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="cern1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id16">[16]</a></td><td><a class="reference external" href="http://cdsweb.cern.ch/record/1330928">http://cdsweb.cern.ch/record/1330928</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="princeton" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[17]</td><td><em>(<a class="fn-backref" href="#id17">1</a>, <a class="fn-backref" href="#id22">2</a>)</em> <a class="reference external" href="http://annals.math.princeton.edu/">http://annals.math.princeton.edu/</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="mathjaxinuse" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id18">[18]</a></td><td><a class="reference external" href="http://www.mathjax.org/community/mathjax-in-use/">http://www.mathjax.org/community/mathjax-in-use/</a></td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="my-choice">
+<h2><a class="toc-backref" href="#id30">My Choice</a></h2>
+<p>So far MathML is obviously not a good choice.
+Between JS+CSS and image, I choose the former, because I want the formulas to be rendered at runtime.
+If I use image, I would have to convert the math into images, store it in some place and embed them in HTML, which would be less convenient.</p>
+<p>MathJax and jsMath are very similar.
+Both MathJax and jsMath are used by many websites <a class="footnote-reference" href="#jsmathinuse" id="id19">[19]</a>, but
+I prefer MathJax because it's newer and is supported by many famous commercial and academic sites such as
+<a class="footnote-reference" href="#stackexchange" id="id20">[14]</a>, <a class="footnote-reference" href="#cern" id="id21">[15]</a>, <a class="footnote-reference" href="#princeton" id="id22">[17]</a>.</p>
+<p>jqMath is another option. It is said that it is much faster than MathJax <a class="footnote-reference" href="#jqmath-mathjax" id="id23">[20]</a>, but I didn't try it.
+It seems fewer sites are using it. Maybe I should give it a try later.</p>
+<table class="docutils footnote" frame="void" id="jsmathinuse" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id19">[19]</a></td><td><a class="reference external" href="http://www.math.union.edu/~dpvc/jsmath/gallery.html">http://www.math.union.edu/~dpvc/jsmath/gallery.html</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="jqmath-mathjax" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id23">[20]</a></td><td><a class="reference external" href="http://mathscribe.com/author/jqmath-mathjax-perf.html">http://mathscribe.com/author/jqmath-mathjax-perf.html</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="use-mathjax-in-restructuredtext">
+<h1><a class="toc-backref" href="#id31">Use MathJax in reStructuredText</a></h1>
+<p>No hacking is needed to use MathJax in reStructuredText. We can just use the <tt class="docutils literal">raw</tt> directive:</p>
+<pre class="literal-block">
+math.rst::
+
+        .. role:: raw-latex(raw)
+            :format: latex html
+
+        .. raw:: html
+
+           &lt;script type=&quot;text/javascript&quot; src=&quot;http://localhost/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML&quot;&gt;&lt;/script&gt;
+
+        This: :raw-latex:`\((x+a)^3\)`
+
+        this: :raw-latex:`\(W \approx \sum{f(x_k) \Delta x}\)`
+
+        this: :raw-latex:`\(W = \int_{a}^{b}{f(x) dx}\)`
+
+        and this:
+
+        .. raw:: latex html
+
+           \[ \frac{1}{\Bigl(\sqrt{\phi \sqrt{5}}-\phi\Bigr) e^{\frac25 \pi}} =
+           1+\frac{e^{-2\pi}} {1+\frac{e^{-4\pi}} {1+\frac{e^{-6\pi}}
+           {1+\frac{e^{-8\pi}} {1+\ldots} } } } \]
+
+        When :raw-latex:`\(a \ne 0\)`, there are two solutions to :raw-latex:`\(ax^2 + bx + c = 0\)` and they are
+        :raw-latex:`\(x = {-b \pm \sqrt{b^2-4ac} \over 2a}.\)`
+</pre>
+<p>You will get this:</p>
+<blockquote>
+<p>This: <span class="mathjaxlatex">\((x+a)^3\)</span></p>
+<p>this: <span class="mathjaxlatex">\(W \approx \sum{f(x_k) \Delta x}\)</span></p>
+<p>this: <span class="mathjaxlatex">\(W = \int_{a}^{b}{f(x) dx}\)</span></p>
+<p>and this:</p>
+<div class="mathjaxlatex">
+\[\frac{1}{\Bigl(\sqrt{\phi \sqrt{5}}-\phi\Bigr) e^{\frac25 \pi}} =
+1+\frac{e^{-2\pi}} {1+\frac{e^{-4\pi}} {1+\frac{e^{-6\pi}}
+{1+\frac{e^{-8\pi}} {1+\ldots} } } }\]</div>
+<p>When <span class="mathjaxlatex">\(a \ne 0\)</span>, there are two solutions to <span class="mathjaxlatex">\(ax^2 + bx + c = 0\)</span> and they are <span class="mathjaxlatex">\(x = {-b \pm \sqrt{b^2-4ac} \over 2a}.\)</span></p>
+</blockquote>
+</div>
+<div class="section" id="use-mathjax-in-a-django-project">
+<h1><a class="toc-backref" href="#id32">Use MathJax in a Django project</a></h1>
+<p>I mentioned in <a class="reference external" href="http://forrestyu.net/">my home page</a> that all articles in this site are stored as reStructuredText format.
+<a class="reference external" href="http://forrestyu.net/art/generating-fucntion-tutorial/">Some of the articles</a> contains math formula.
+Here's what I did in my Django project.</p>
+<div class="section" id="use-a-custom-module-for-our-custom-stuff">
+<h2><a class="toc-backref" href="#id33">Use a custom module for our custom stuff</a></h2>
+<p>We will use some custom stuff, so let's create a custom module:</p>
+<pre class="literal-block">
+$ mkdir rsthack
+$ cd rsthack
+$ touch __init__.py
+$ ln -s /path/to/rsthack /path/to/a/module/search/path/
+</pre>
+<p>The code for new roles and new directive will be put in the __init__.py.</p>
+</div>
+<div class="section" id="add-a-new-role-mil">
+<h2><a class="toc-backref" href="#id34">Add a new role <tt class="docutils literal">mil</tt></a></h2>
+<p><tt class="docutils literal">mil</tt> stands for <strong>m</strong><em>ath</em> <strong>i</strong><em>n</em><strong>l</strong><em>ine</em>.</p>
+<blockquote>
+<div class="highlight"><pre style="line-height: 125%">class_name <span style="color: #666666">=</span> <span style="color: #BA2121">&#39;mathjaxlatex&#39;</span>  <span style="color: #408080; font-style: italic"># appears in &lt;span class=&quot;mathjaxlatex&quot;&gt; and &lt;div class=&quot;mathjaxlatex&quot;&gt;</span>
+
+<span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">MRole</span>(role, rawtext, text, lineno, inliner, options<span style="color: #666666">=</span>{}, content<span style="color: #666666">=</span>[]):
+    t <span style="color: #666666">=</span> re<span style="color: #666666">.</span>sub(<span style="color: #BA2121">&#39;:</span><span style="color: #BB6688; font-weight: bold">%s</span><span style="color: #BA2121">:&#39;</span> <span style="color: #666666">%</span> role, <span style="color: #BA2121">&#39;&#39;</span>, rawtext)
+    <span style="color: #008000; font-weight: bold">assert</span> t[:<span style="color: #666666">1</span>] <span style="color: #666666">==</span> <span style="color: #BA2121">&#39;`&#39;</span> <span style="color: #AA22FF; font-weight: bold">and</span> t[<span style="color: #666666">-1</span>:] <span style="color: #666666">==</span> <span style="color: #BA2121">&#39;`&#39;</span>
+    t <span style="color: #666666">=</span> <span style="color: #BA2121">r&#39;\(</span><span style="color: #BB6688; font-weight: bold">%s</span><span style="color: #BA2121">\)&#39;</span> <span style="color: #666666">%</span> t[<span style="color: #666666">1</span>:<span style="color: #666666">-1</span>]
+    options<span style="color: #666666">=</span>{<span style="color: #BA2121">&#39;format&#39;</span>: <span style="color: #BA2121">&#39;html&#39;</span>, <span style="color: #BA2121">&#39;classes&#39;</span>: [class_name]}
+    node <span style="color: #666666">=</span> nodes<span style="color: #666666">.</span>raw(rawtext, t, <span style="color: #666666">**</span>options)
+    <span style="color: #008000; font-weight: bold">return</span> [node], []
+
+roles<span style="color: #666666">.</span>register_canonical_role(<span style="color: #BA2121">&#39;mil&#39;</span>, MRole)
+</pre></div>
+</blockquote>
+<p>Then we can use <tt class="docutils literal"><span class="pre">:mil:`x</span> = <span class="pre">{-b</span> \pm <span class="pre">\sqrt{b^2-4ac}</span> \over 2a}`</tt> to get <span class="mathjaxlatex">\(x = {-b \pm \sqrt{b^2-4ac} \over 2a}\)</span>.</p>
+</div>
+<div class="section" id="add-new-directive-math-and-new-role-eq">
+<h2><a class="toc-backref" href="#id35">Add new directive <tt class="docutils literal">math</tt> and new role <tt class="docutils literal">eq</tt></a></h2>
+<p>The code for role <tt class="docutils literal">eq</tt> is simple, but the code for directive <tt class="docutils literal">math</tt> is a little more complicated.
+Most lines below are cloned from <a class="reference external" href="http://sphinx.pocoo.org/">Sphinx</a> source.</p>
+<blockquote>
+<div class="highlight"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic">######################################################################</span>
+<span style="color: #408080; font-style: italic"># role eq</span>
+<span style="color: #408080; font-style: italic">######################################################################</span>
+<span style="color: #408080; font-style: italic"># see: /usr/share/pyshared/sphinx/ext/mathbase.py</span>
+
+<span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">eqref</span>(nodes<span style="color: #666666">.</span>Inline, nodes<span style="color: #666666">.</span>TextElement):
+    <span style="color: #008000; font-weight: bold">pass</span>
+
+<span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">html_visit_eqref</span>(<span style="color: #008000">self</span>, node):
+    <span style="color: #008000">self</span><span style="color: #666666">.</span>body<span style="color: #666666">.</span>append(<span style="color: #BA2121">&#39;&lt;a href=&quot;#equation-</span><span style="color: #BB6688; font-weight: bold">%s</span><span style="color: #BA2121">&quot;&gt;&#39;</span> <span style="color: #666666">%</span> node[<span style="color: #BA2121">&#39;target&#39;</span>])
+
+<span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">html_depart_eqref</span>(<span style="color: #008000">self</span>, node):
+    <span style="color: #008000">self</span><span style="color: #666666">.</span>body<span style="color: #666666">.</span>append(<span style="color: #BA2121">&#39;&lt;/a&gt;&#39;</span>)
+
+<span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">eq_role</span>(role, rawtext, text, lineno, inliner, options<span style="color: #666666">=</span>{}, content<span style="color: #666666">=</span>[]):
+    text <span style="color: #666666">=</span> utils<span style="color: #666666">.</span>unescape(text)
+    node <span style="color: #666666">=</span> eqref(<span style="color: #BA2121">&#39;(?)&#39;</span>, <span style="color: #BA2121">&#39;(?)&#39;</span>, target<span style="color: #666666">=</span>text)
+    <span style="color: #008000; font-weight: bold">return</span> [node], []
+
+roles<span style="color: #666666">.</span>register_canonical_role(<span style="color: #BA2121">&#39;eq&#39;</span>, eq_role)
+
+<span style="color: #408080; font-style: italic">######################################################################</span>
+<span style="color: #408080; font-style: italic"># directive math</span>
+<span style="color: #408080; font-style: italic">######################################################################</span>
+<span style="color: #408080; font-style: italic"># see:</span>
+<span style="color: #408080; font-style: italic">#     /usr/share/pyshared/sphinx/application.py</span>
+<span style="color: #408080; font-style: italic">#     /usr/share/pyshared/sphinx/ext/mathbase.py</span>
+<span style="color: #408080; font-style: italic">#     /usr/share/pyshared/sphinx/ext/jsmath.py</span>
+<span style="color: #408080; font-style: italic">#     /usr/share/doc/python-sphinx/html/ext/math.html</span>
+
+<span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">massage_equations</span>(doctree):
+    num <span style="color: #666666">=</span> <span style="color: #666666">0</span>
+    numbers <span style="color: #666666">=</span> {}
+
+    <span style="color: #408080; font-style: italic"># generate the &quot;label-&gt;number&quot; map from directive ``math``</span>
+    <span style="color: #008000; font-weight: bold">for</span> node <span style="color: #AA22FF; font-weight: bold">in</span> doctree<span style="color: #666666">.</span>traverse(displaymath):
+        <span style="color: #008000; font-weight: bold">if</span> node[<span style="color: #BA2121">&#39;number&#39;</span>] <span style="color: #AA22FF; font-weight: bold">is</span> <span style="color: #008000">None</span>:
+            <span style="color: #008000; font-weight: bold">continue</span>
+        numbers[node[<span style="color: #BA2121">&#39;label&#39;</span>]] <span style="color: #666666">=</span> node[<span style="color: #BA2121">&#39;number&#39;</span>]
+
+    <span style="color: #408080; font-style: italic"># set eqno in references</span>
+    <span style="color: #008000; font-weight: bold">for</span> node <span style="color: #AA22FF; font-weight: bold">in</span> doctree<span style="color: #666666">.</span>traverse(eqref):
+        <span style="color: #008000; font-weight: bold">if</span> node[<span style="color: #BA2121">&#39;target&#39;</span>] <span style="color: #AA22FF; font-weight: bold">not</span> <span style="color: #AA22FF; font-weight: bold">in</span> numbers:
+            <span style="color: #008000; font-weight: bold">continue</span>
+        num <span style="color: #666666">=</span> <span style="color: #BA2121">&#39;(</span><span style="color: #BB6688; font-weight: bold">%d</span><span style="color: #BA2121">)&#39;</span> <span style="color: #666666">%</span> numbers[node[<span style="color: #BA2121">&#39;target&#39;</span>]]
+        node[<span style="color: #666666">0</span>] <span style="color: #666666">=</span> nodes<span style="color: #666666">.</span>Text(num, num)
+
+<span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">html_visit_displaymath</span>(<span style="color: #008000">self</span>, node):
+    <span style="color: #008000; font-weight: bold">if</span> node[<span style="color: #BA2121">&#39;nowrap&#39;</span>]:
+        <span style="color: #008000">self</span><span style="color: #666666">.</span>body<span style="color: #666666">.</span>append(<span style="color: #008000">self</span><span style="color: #666666">.</span>starttag(node, <span style="color: #BA2121">&#39;div&#39;</span>, CLASS<span style="color: #666666">=</span>class_name))
+        <span style="color: #008000">self</span><span style="color: #666666">.</span>body<span style="color: #666666">.</span>append(node[<span style="color: #BA2121">&#39;latex&#39;</span>])
+        <span style="color: #008000">self</span><span style="color: #666666">.</span>body<span style="color: #666666">.</span>append(<span style="color: #BA2121">&#39;&lt;/div&gt;&#39;</span>)
+        <span style="color: #008000; font-weight: bold">raise</span> nodes<span style="color: #666666">.</span>SkipNode
+    <span style="color: #008000; font-weight: bold">for</span> i, part <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #008000">enumerate</span>(node[<span style="color: #BA2121">&#39;latex&#39;</span>]<span style="color: #666666">.</span>split(<span style="color: #BA2121">&#39;</span><span style="color: #BB6622; font-weight: bold">\n\n</span><span style="color: #BA2121">&#39;</span>)):
+        part <span style="color: #666666">=</span> <span style="color: #008000">self</span><span style="color: #666666">.</span>encode(part)
+        <span style="color: #008000; font-weight: bold">if</span> i <span style="color: #666666">==</span> <span style="color: #666666">0</span>:
+            <span style="color: #408080; font-style: italic"># necessary to e.g. set the id property correctly</span>
+            <span style="color: #008000; font-weight: bold">if</span> node[<span style="color: #BA2121">&#39;number&#39;</span>] <span style="color: #AA22FF; font-weight: bold">is</span> <span style="color: #AA22FF; font-weight: bold">not</span> <span style="color: #008000">None</span>:
+                <span style="color: #008000">self</span><span style="color: #666666">.</span>body<span style="color: #666666">.</span>append(<span style="color: #BA2121">&#39;&lt;span class=&quot;eqno&quot;&gt;(</span><span style="color: #BB6688; font-weight: bold">%s</span><span style="color: #BA2121">)&lt;/span&gt;&#39;</span> <span style="color: #666666">%</span>
+                                 node[<span style="color: #BA2121">&#39;number&#39;</span>])
+            <span style="color: #008000">self</span><span style="color: #666666">.</span>body<span style="color: #666666">.</span>append(<span style="color: #008000">self</span><span style="color: #666666">.</span>starttag(node, <span style="color: #BA2121">&#39;div&#39;</span>, CLASS<span style="color: #666666">=</span>class_name))
+        <span style="color: #008000; font-weight: bold">else</span>:
+            <span style="color: #408080; font-style: italic"># but only once!</span>
+            <span style="color: #008000">self</span><span style="color: #666666">.</span>body<span style="color: #666666">.</span>append(<span style="color: #BA2121">&#39;&lt;div class=&quot;</span><span style="color: #BB6688; font-weight: bold">%s</span><span style="color: #BA2121">&quot;&gt;&#39;</span> <span style="color: #666666">%</span> class_name)
+        <span style="color: #008000; font-weight: bold">if</span> <span style="color: #BA2121">&#39;&amp;&#39;</span> <span style="color: #AA22FF; font-weight: bold">in</span> part <span style="color: #AA22FF; font-weight: bold">or</span> <span style="color: #BA2121">&#39;</span><span style="color: #BB6622; font-weight: bold">\\\\</span><span style="color: #BA2121">&#39;</span> <span style="color: #AA22FF; font-weight: bold">in</span> part:
+            <span style="color: #008000">self</span><span style="color: #666666">.</span>body<span style="color: #666666">.</span>append(<span style="color: #BA2121">&#39;</span><span style="color: #BB6622; font-weight: bold">\\</span><span style="color: #BA2121">[</span><span style="color: #BB6622; font-weight: bold">\\</span><span style="color: #BA2121">begin{align}</span><span style="color: #BB6622; font-weight: bold">\n</span><span style="color: #BA2121">&#39;</span> <span style="color: #666666">+</span> part <span style="color: #666666">+</span> <span style="color: #BA2121">&#39;</span><span style="color: #BB6622; font-weight: bold">\n\\</span><span style="color: #BA2121">end{align}</span><span style="color: #BB6622; font-weight: bold">\\</span><span style="color: #BA2121">]&#39;</span>)
+        <span style="color: #008000; font-weight: bold">else</span>:
+            <span style="color: #008000">self</span><span style="color: #666666">.</span>body<span style="color: #666666">.</span>append(<span style="color: #BA2121">&#39;</span><span style="color: #BB6622; font-weight: bold">\\</span><span style="color: #BA2121">[&#39;</span> <span style="color: #666666">+</span> part <span style="color: #666666">+</span> <span style="color: #BA2121">&#39;</span><span style="color: #BB6622; font-weight: bold">\\</span><span style="color: #BA2121">]&#39;</span>)
+        <span style="color: #008000">self</span><span style="color: #666666">.</span>body<span style="color: #666666">.</span>append(<span style="color: #BA2121">&#39;&lt;/div&gt;</span><span style="color: #BB6622; font-weight: bold">\n</span><span style="color: #BA2121">&#39;</span>)
+    <span style="color: #008000; font-weight: bold">raise</span> nodes<span style="color: #666666">.</span>SkipNode
+
+<span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">add_node</span>(node, <span style="color: #666666">**</span>kwds):
+    nodes<span style="color: #666666">.</span>_add_node_class_names([node<span style="color: #666666">.</span>__name__])
+    <span style="color: #008000; font-weight: bold">for</span> key, val <span style="color: #AA22FF; font-weight: bold">in</span> kwds<span style="color: #666666">.</span>iteritems():
+        <span style="color: #008000; font-weight: bold">try</span>:
+            visit, depart <span style="color: #666666">=</span> val
+        <span style="color: #008000; font-weight: bold">except</span> <span style="color: #D2413A; font-weight: bold">ValueError</span>:
+            <span style="color: #008000; font-weight: bold">raise</span> ExtensionError(<span style="color: #BA2121">&#39;Value for key </span><span style="color: #BB6688; font-weight: bold">%r</span><span style="color: #BA2121"> must be a &#39;</span>
+                                 <span style="color: #BA2121">&#39;(visit, depart) function tuple&#39;</span> <span style="color: #666666">%</span> key)
+
+        <span style="color: #008000; font-weight: bold">assert</span> key <span style="color: #666666">==</span> <span style="color: #BA2121">&#39;html&#39;</span>, <span style="color: #BA2121">&#39;accept html only&#39;</span>
+
+        <span style="color: #008000">setattr</span>(translator, <span style="color: #BA2121">&#39;visit_&#39;</span><span style="color: #666666">+</span>node<span style="color: #666666">.</span>__name__, visit)
+        <span style="color: #008000; font-weight: bold">if</span> depart:
+            <span style="color: #008000">setattr</span>(translator, <span style="color: #BA2121">&#39;depart_&#39;</span><span style="color: #666666">+</span>node<span style="color: #666666">.</span>__name__, depart)
+
+<span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">displaymath</span>(nodes<span style="color: #666666">.</span>Part, nodes<span style="color: #666666">.</span>Element):
+    <span style="color: #008000; font-weight: bold">pass</span>
+
+<span style="color: #408080; font-style: italic"># custom directive ``math``</span>
+<span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">MathDisplay</span>(Directive):
+    has_content <span style="color: #666666">=</span> <span style="color: #008000">True</span>
+    required_arguments <span style="color: #666666">=</span> <span style="color: #666666">0</span>
+    optional_arguments <span style="color: #666666">=</span> <span style="color: #666666">1</span>
+    final_argument_whitespace <span style="color: #666666">=</span> <span style="color: #008000">True</span>
+    option_spec <span style="color: #666666">=</span> {
+        <span style="color: #BA2121">&#39;label&#39;</span>:  directives<span style="color: #666666">.</span>unchanged,
+        <span style="color: #BA2121">&#39;nowrap&#39;</span>: directives<span style="color: #666666">.</span>flag,
+        <span style="color: #BA2121">&#39;number&#39;</span>: directives<span style="color: #666666">.</span>nonnegative_int,
+    }
+
+    <span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">run</span>(<span style="color: #008000">self</span>):
+        latex <span style="color: #666666">=</span> <span style="color: #BA2121">&#39;</span><span style="color: #BB6622; font-weight: bold">\n</span><span style="color: #BA2121">&#39;</span><span style="color: #666666">.</span>join(<span style="color: #008000">self</span><span style="color: #666666">.</span>content)
+        <span style="color: #008000; font-weight: bold">if</span> <span style="color: #008000">self</span><span style="color: #666666">.</span>arguments <span style="color: #AA22FF; font-weight: bold">and</span> <span style="color: #008000">self</span><span style="color: #666666">.</span>arguments[<span style="color: #666666">0</span>]:
+            latex <span style="color: #666666">=</span> <span style="color: #008000">self</span><span style="color: #666666">.</span>arguments[<span style="color: #666666">0</span>] <span style="color: #666666">+</span> <span style="color: #BA2121">&#39;</span><span style="color: #BB6622; font-weight: bold">\n\n</span><span style="color: #BA2121">&#39;</span> <span style="color: #666666">+</span> latex
+        node <span style="color: #666666">=</span> displaymath()
+        node[<span style="color: #BA2121">&#39;latex&#39;</span>]  <span style="color: #666666">=</span> latex
+        node[<span style="color: #BA2121">&#39;number&#39;</span>] <span style="color: #666666">=</span> <span style="color: #008000">self</span><span style="color: #666666">.</span>options<span style="color: #666666">.</span>get(<span style="color: #BA2121">&#39;number&#39;</span>, <span style="color: #008000">None</span>)
+        node[<span style="color: #BA2121">&#39;label&#39;</span>]  <span style="color: #666666">=</span> <span style="color: #008000">self</span><span style="color: #666666">.</span>options<span style="color: #666666">.</span>get(<span style="color: #BA2121">&#39;label&#39;</span>, node[<span style="color: #BA2121">&#39;number&#39;</span>])
+        node[<span style="color: #BA2121">&#39;nowrap&#39;</span>] <span style="color: #666666">=</span> <span style="color: #BA2121">&#39;nowrap&#39;</span> <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #008000">self</span><span style="color: #666666">.</span>options
+
+        ret <span style="color: #666666">=</span> [node]
+
+        <span style="color: #008000; font-weight: bold">if</span> node[<span style="color: #BA2121">&#39;label&#39;</span>]:
+            tnode <span style="color: #666666">=</span> nodes<span style="color: #666666">.</span>target(<span style="color: #BA2121">&#39;&#39;</span>, <span style="color: #BA2121">&#39;&#39;</span>, ids<span style="color: #666666">=</span>[<span style="color: #BA2121">&#39;equation-&#39;</span> <span style="color: #666666">+</span> node[<span style="color: #BA2121">&#39;label&#39;</span>]])
+            <span style="color: #008000">self</span><span style="color: #666666">.</span>state<span style="color: #666666">.</span>document<span style="color: #666666">.</span>note_explicit_target(tnode)
+            ret<span style="color: #666666">.</span>insert(<span style="color: #666666">0</span>, tnode)
+        <span style="color: #008000; font-weight: bold">return</span> ret
+
+add_node(eqref, html<span style="color: #666666">=</span>(html_visit_eqref, html_depart_eqref))
+add_node(displaymath, html<span style="color: #666666">=</span>(html_visit_displaymath, <span style="color: #008000">None</span>))
+
+directives<span style="color: #666666">.</span>register_directive(<span style="color: #BA2121">&#39;math&#39;</span>, MathDisplay)
+</pre></div>
+</blockquote>
+</div>
+<div class="section" id="write-a-custom-django-filter">
+<h2><a class="toc-backref" href="#id36">Write a custom Django filter</a></h2>
+<p>The code above are in our custom module <tt class="docutils literal">rsthack</tt>, so everytime we <tt class="docutils literal">import rsthack</tt>,
+the code will run and we are ready to use the new roles, new directive and stuff.</p>
+<p>One trick in the following filter is that we call <tt class="docutils literal">rsthack.massage_equations</tt> to set the correct equation numbers in references.</p>
+<blockquote>
+<div class="highlight"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic">##############################</span>
+<span style="color: #408080; font-style: italic"># filter enhancedrst</span>
+<span style="color: #408080; font-style: italic">##############################</span>
+
+<span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">django.conf</span> <span style="color: #008000; font-weight: bold">import</span> settings
+<span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">django.utils.encoding</span> <span style="color: #008000; font-weight: bold">import</span> smart_str, force_unicode
+<span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">django.utils.safestring</span> <span style="color: #008000; font-weight: bold">import</span> mark_safe
+
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">rsthack</span>  <span style="color: #408080; font-style: italic"># run rsthack/__init__.py</span>
+
+<span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">enhancedrst</span>(value):
+    <span style="color: #008000; font-weight: bold">try</span>:
+        <span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">docutils</span> <span style="color: #008000; font-weight: bold">import</span> io
+        <span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">docutils.core</span> <span style="color: #008000; font-weight: bold">import</span> publish_doctree, Publisher
+        <span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">docutils.readers.doctree</span> <span style="color: #008000; font-weight: bold">import</span> Reader
+    <span style="color: #008000; font-weight: bold">except</span> <span style="color: #D2413A; font-weight: bold">ImportError</span>:
+        <span style="color: #008000; font-weight: bold">if</span> settings<span style="color: #666666">.</span>DEBUG:
+            <span style="color: #008000; font-weight: bold">raise</span> template<span style="color: #666666">.</span>TemplateSyntaxError(<span style="color: #BA2121">&quot;Error in {</span><span style="color: #BB6688; font-weight: bold">% r</span><span style="color: #BA2121">estructuredtext %} filter: The Python docutils library isn&#39;t installed.&quot;</span>)
+        <span style="color: #008000; font-weight: bold">return</span> force_unicode(value)
+    <span style="color: #008000; font-weight: bold">else</span>:
+        docutils_settings <span style="color: #666666">=</span> <span style="color: #008000">getattr</span>(settings, <span style="color: #BA2121">&quot;RESTRUCTUREDTEXT_FILTER_SETTINGS&quot;</span>, {})
+
+        <span style="color: #408080; font-style: italic"># generate the doctree</span>
+        document <span style="color: #666666">=</span> publish_doctree(source<span style="color: #666666">=</span>smart_str(value), source_class<span style="color: #666666">=</span>io<span style="color: #666666">.</span>StringInput)
+
+        <span style="color: #408080; font-style: italic"># connect eqno and the reference</span>
+        rsthack<span style="color: #666666">.</span>massage_equations(document)
+
+        <span style="color: #408080; font-style: italic"># apply the massaged doctree</span>
+        <span style="color: #408080; font-style: italic"># (this is almost the same as docutils.core.publish_from_doctree)</span>
+        pub <span style="color: #666666">=</span> Publisher(Reader(parser_name<span style="color: #666666">=</span><span style="color: #BA2121">&#39;null&#39;</span>),
+                        <span style="color: #008000">None</span>, <span style="color: #008000">None</span>,
+                        source<span style="color: #666666">=</span>io<span style="color: #666666">.</span>DocTreeInput(document),
+                        destination_class<span style="color: #666666">=</span>io<span style="color: #666666">.</span>StringOutput)
+        pub<span style="color: #666666">.</span>set_writer(<span style="color: #BA2121">&#39;html4css1&#39;</span>)
+        pub<span style="color: #666666">.</span>process_programmatic_settings(<span style="color: #008000">None</span>, docutils_settings, <span style="color: #008000">None</span>)
+        pub<span style="color: #666666">.</span>set_destination(<span style="color: #008000">None</span>, <span style="color: #008000">None</span>)
+        pub<span style="color: #666666">.</span>publish()
+        parts <span style="color: #666666">=</span> pub<span style="color: #666666">.</span>writer<span style="color: #666666">.</span>parts
+
+        <span style="color: #008000; font-weight: bold">return</span> mark_safe(force_unicode(parts[<span style="color: #BA2121">&quot;fragment&quot;</span>]))
+
+enhancedrst<span style="color: #666666">.</span>is_safe <span style="color: #666666">=</span> <span style="color: #008000">True</span>
+
+register<span style="color: #666666">.</span>filter(enhancedrst)
+</pre></div>
+</blockquote>
+</div>
+<div class="section" id="use-the-new-filter">
+<h2><a class="toc-backref" href="#id37">Use the new filter</a></h2>
+<p>A Django template sample:</p>
+<pre class="literal-block">
+{% load rst %}
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;{{ mediaurl }}css/rst.css&quot; /&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;{{ mathjax }}&quot;&gt;&lt;/script&gt;
+{% for art in articles %}
+    &lt;blockquote&gt;
+    {{ art.content|enhancedrst }}
+    &lt;/blockquote&gt;
+{% endfor %}
+</pre>
+<p>in which</p>
+<ul>
+<li><p class="first">the filter source is part of file rst.py, so we use <tt class="docutils literal">load rst</tt> to load it</p>
+</li>
+<li><dl class="first docutils">
+<dt>in rst.css we mush have</dt>
+<dd><div class="first last"><div class="highlight"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">span</span><span style="color: #0000FF; font-weight: bold">.eqno</span> {
+        <span style="color: #008000; font-weight: bold">float</span><span style="color: #666666">:</span> <span style="color: #008000; font-weight: bold">right</span>;
+}
+</pre></div>
+</div></dd>
+</dl>
+</li>
+<li><p class="first">the URL <tt class="docutils literal">mathjax</tt> can be either the MathJax CDN or your own MathJax URL <a class="footnote-reference" href="#mathjaxloading" id="id24">[21]</a></p>
+</li>
+<li><p class="first"><tt class="docutils literal">art.content</tt> should be in reStructuredText format</p>
+</li>
+</ul>
+<table class="docutils footnote" frame="void" id="mathjaxloading" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id24">[21]</a></td><td><a class="reference external" href="http://www.mathjax.org/docs/1.1/configuration.html">http://www.mathjax.org/docs/1.1/configuration.html</a></td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="write-math-in-django">
+<h2><a class="toc-backref" href="#id38">Write math in Django</a></h2>
+<p>Now everything's ready. Let's write math in our article:</p>
+<pre class="literal-block">
+When :mil:`a \ne 0`, there are two solutions to :mil:`ax^2 + bx + c = 0` and they are
+:mil:`x = {-b \pm \sqrt{b^2-4ac} \over 2a}.`
+
+Some *big* math:
+.. math::
+    :number: 123
+    :label: blah
+
+    \frac{1}{\Bigl(\sqrt{\phi \sqrt{5}}-\phi\Bigr) e^{\frac25 \pi}} =
+    1+\frac{e^{-2\pi}} {1+\frac{e^{-4\pi}} {1+\frac{e^{-6\pi}}
+    {1+\frac{e^{-8\pi}} {1+\ldots} } } }
+
+Did you know equation :eq:`blah`?
+</pre>
+<p>We will get:</p>
+<blockquote>
+<p>When <span class="mathjaxlatex">\(a \ne 0\)</span>, there are two solutions to <span class="mathjaxlatex">\(ax^2 + bx + c = 0\)</span> and they are
+<span class="mathjaxlatex">\(x = {-b \pm \sqrt{b^2-4ac} \over 2a}.\)</span></p>
+<p>Some <em>big</em> math:</p>
+<span class="eqno">(123)</span><div class="mathjaxlatex" id="equation-blah">
+\[\frac{1}{\Bigl(\sqrt{\phi \sqrt{5}}-\phi\Bigr) e^{\frac25 \pi}} =
+1+\frac{e^{-2\pi}} {1+\frac{e^{-4\pi}} {1+\frac{e^{-6\pi}}
+{1+\frac{e^{-8\pi}} {1+\ldots} } } }\]</div>
+<p>Did you know equation <a href="#equation-blah">(123)</a>?</p>
+</blockquote>
+</div>
+<div class="section" id="get-the-code">
+<h2><a class="toc-backref" href="#id39">Get the code</a></h2>
+<p>Most of the code above is available in <a class="reference external" href="http://code.google.com/p/forrest/">Google Code</a>. You can either
+<a class="reference external" href="http://code.google.com/p/forrest/source/browse/src/rsthack/__init__.py">read online</a>
+or <a class="reference external" href="http://code.google.com/p/forrest/source/checkout">check it out</a> from the repository.</p>
+</div>
+</div>
+<div class="section" id="extra-readings">
+<h1><a class="toc-backref" href="#id40">Extra readings</a></h1>
+<div class="section" id="future-release-of-docutils-may-support-rm-latex-math">
+<h2><a class="toc-backref" href="#id41">future release of docutils may support <span class="mathjaxlatex">\(\rm \LaTeX\)</span> math</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="http://stackoverflow.com/questions/3610551/math-in-restructuredtext-with-latex">http://stackoverflow.com/questions/3610551/math-in-restructuredtext-with-latex</a></li>
+<li><a class="reference external" href="http://article.gmane.org/gmane.text.docutils.user/6255">http://article.gmane.org/gmane.text.docutils.user/6255</a></li>
+</ul>
+</div>
+<div class="section" id="jsxgraph">
+<h2><a class="toc-backref" href="#id42">JSXGraph</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="http://jsxgraph.uni-bayreuth.de/wp/">http://jsxgraph.uni-bayreuth.de/wp/</a></li>
+<li><a class="reference external" href="https://groups.google.com/forum/#!topic/mathjax-users/ER-pN6TSplU">https://groups.google.com/forum/#!topic/mathjax-users/ER-pN6TSplU</a></li>
+</ul>
+</div>
+<div class="section" id="gmailtex">
+<h2><a class="toc-backref" href="#id43">GMailTeX</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="http://alexeev.org/gmailtex.html">http://alexeev.org/gmailtex.html</a></li>
+</ul>
+</div>
+</div>
+</div>
+</body>
+</html>
+

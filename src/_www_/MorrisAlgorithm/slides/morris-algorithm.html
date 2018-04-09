@@ -1,0 +1,505 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>[slide show title here]</title>
+<!-- metadata -->
+<meta name="generator" content="S5" />
+<meta name="version" content="S5 1.1" />
+<meta name="presdate" content="20050728" />
+<meta name="author" content="Eric A. Meyer" />
+<meta name="company" content="Complex Spiral Consulting" />
+<!-- configuration parameters -->
+<meta name="defaultView" content="slideshow" />
+<meta name="controlVis" content="hidden" />
+<!-- style sheet links -->
+<link rel="stylesheet" href="ui/default/slides.css" type="text/css" media="projection" id="slideProj" />
+<link rel="stylesheet" href="ui/default/outline.css" type="text/css" media="screen" id="outlineStyle" />
+<link rel="stylesheet" href="ui/default/print.css" type="text/css" media="print" id="slidePrint" />
+<link rel="stylesheet" href="ui/default/opera.css" type="text/css" media="projection" id="operaFix" />
+<!-- S5 JS -->
+<script src="ui/default/slides.js" type="text/javascript"></script>
+</head>
+<body>
+
+<div class="layout">
+<div id="controls"><!-- DO NOT EDIT --></div>
+<div id="currentSlide"><!-- DO NOT EDIT --></div>
+<div id="header"></div>
+<div id="footer">
+<h1>[Morris Algorithm @ TAOCP]</h1>
+<h2>[implementation and illustrations]</h2>
+</div>
+
+</div>
+
+
+<div class="presentation">
+
+<div class="slide">
+<h1>Joseph M. Morris Algorithm</h1>
+<h2>From answer to exercise 2.3.1-21 of</h2>
+<h2>The Art Of Computer Programming</h2>
+<h3>Forrest Y. Yu</h3>
+<h4><a href="http://forrestyu.net/">http://forrestyu.net/</a></h4>
+</div>
+
+<div class="slide">
+<h1>C code</h1>
+<div font-szie="50%">
+<pre font-szie=smaller style="line-height: 100%"><a name="code-morris-algorithm-1">                                </a><span style="color: #B00040">void</span> <span style="color: #0000FF">Joseph_M_Morris</span>(<span style="color: #008000; font-weight: bold">struct</span> node <span style="color: #666666">*</span> T)
+<a name="code-morris-algorithm-2"></a>                                {
+<a name="code-morris-algorithm-3"></a>                                        <span style="color: #408080; font-style: italic">/* U1. [Initialize.] */</span> 
+<a name="code-morris-algorithm-4"></a>                                        P <span style="color: #666666">=</span> T;
+<a name="code-morris-algorithm-5"></a>                                        R <span style="color: #666666">=</span> <span style="color: #666666">0</span>;
+<a name="code-morris-algorithm-6"></a> 
+<a name="code-morris-algorithm-7"></a>                                        <span style="color: #008000; font-weight: bold">while</span> (P) { <span style="color: #408080; font-style: italic">/* U2. [Done?] */</span> 
+<a name="code-morris-algorithm-8"></a>                                                <span style="color: #008000; font-weight: bold">while</span> (<span style="color: #666666">1</span>) {
+<a name="code-morris-algorithm-9"></a>                                                        <span style="color: #408080; font-style: italic">/* U3. [Look left.] */</span> 
+<a name="code-morris-algorithm-10"></a>                                                        Q <span style="color: #666666">=</span> P<span style="color: #666666">-&gt;</span>L;
+<a name="code-morris-algorithm-11"></a>                                                        <span style="color: #008000; font-weight: bold">if</span> (Q <span style="color: #666666">==</span> <span style="color: #666666">0</span>) {
+<a name="code-morris-algorithm-12"></a>                                                                visit(P, preorder);
+<a name="code-morris-algorithm-13"></a>                                                                <span style="color: #008000; font-weight: bold">break</span>; <span style="color: #408080; font-style: italic">/* goto U6; */</span> 
+<a name="code-morris-algorithm-14"></a>                                                        }
+<a name="code-morris-algorithm-15"></a>                                 
+<a name="code-morris-algorithm-16"></a>                                                        <span style="color: #408080; font-style: italic">/* U4. [Search for thread.] */</span> 
+<a name="code-morris-algorithm-17"></a>                                                        <span style="color: #008000; font-weight: bold">while</span> (Q <span style="color: #666666">!=</span> R <span style="color: #666666">&amp;&amp;</span> Q<span style="color: #666666">-&gt;</span>R <span style="color: #666666">!=</span> <span style="color: #666666">0</span>)
+<a name="code-morris-algorithm-18"></a>                                                                Q <span style="color: #666666">=</span> Q<span style="color: #666666">-&gt;</span>R;
+<a name="code-morris-algorithm-19"></a>                                                        assert(Q <span style="color: #666666">==</span> R <span style="color: #666666">||</span> Q<span style="color: #666666">-&gt;</span>R <span style="color: #666666">==</span> <span style="color: #666666">0</span>);
+<a name="code-morris-algorithm-20"></a>                                 
+<a name="code-morris-algorithm-21"></a>                                                        <span style="color: #408080; font-style: italic">/* U5. [Insert or remove thread.] */</span> 
+<a name="code-morris-algorithm-22"></a>                                                        <span style="color: #008000; font-weight: bold">if</span> (Q <span style="color: #666666">!=</span> R) {
+<a name="code-morris-algorithm-23"></a>                                                                Q<span style="color: #666666">-&gt;</span>R <span style="color: #666666">=</span> P;
+<a name="code-morris-algorithm-24"></a>                                                        } <span style="color: #008000; font-weight: bold">else</span> {
+<a name="code-morris-algorithm-25"></a>                                                                Q<span style="color: #666666">-&gt;</span>R <span style="color: #666666">=</span> <span style="color: #666666">0</span>;
+<a name="code-morris-algorithm-26"></a>                                                                <span style="color: #008000; font-weight: bold">break</span>;
+<a name="code-morris-algorithm-27"></a>                                                        }
+<a name="code-morris-algorithm-28"></a>                                 
+<a name="code-morris-algorithm-29"></a>                                                        <span style="color: #408080; font-style: italic">/* U8. [Preorder visit.] */</span> 
+<a name="code-morris-algorithm-30"></a>                                                        visit(P, preorder);
+<a name="code-morris-algorithm-31"></a>                                 
+<a name="code-morris-algorithm-32"></a>                                                        <span style="color: #408080; font-style: italic">/* U9. [Go to left.] */</span> 
+<a name="code-morris-algorithm-33"></a>                                                        P <span style="color: #666666">=</span> P<span style="color: #666666">-&gt;</span>L;
+<a name="code-morris-algorithm-34"></a>                                                        <span style="color: #408080; font-style: italic">/* goto U3 */</span> 
+<a name="code-morris-algorithm-35"></a>                                                }
+<a name="code-morris-algorithm-36"></a>                                 
+<a name="code-morris-algorithm-37"></a>                                                <span style="color: #408080; font-style: italic">/* U6. [Inorder visit.] */</span> 
+<a name="code-morris-algorithm-38"></a>                                                visit(P, inorder);
+<a name="code-morris-algorithm-39"></a>                                 
+<a name="code-morris-algorithm-40"></a>                                                <span style="color: #408080; font-style: italic">/* U7. [Go to right or up.] */</span> 
+<a name="code-morris-algorithm-41"></a>                                                R <span style="color: #666666">=</span> P;
+<a name="code-morris-algorithm-42"></a>                                                P <span style="color: #666666">=</span> P<span style="color: #666666">-&gt;</span>R;
+<a name="code-morris-algorithm-43"></a>                                                <span style="color: #408080; font-style: italic">/* goto U2 */</span> 
+<a name="code-morris-algorithm-44"></a>                                        }
+<a name="code-morris-algorithm-45"></a>                                }
+</pre>
+</div>
+</div>
+
+<div class="slide">
+<br/>
+<!-- <p style="width: 520px; margin: 0 auto; text-align: center;"> -->
+<p style="margin: 0 auto; text-align: center;">
+<img alt="01" src="morris01.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<!-- <p style="width: 520px; margin: 0 auto; text-align: center;"> -->
+<p style="margin: 0 auto; text-align: center;">
+<img alt="02" src="morris02.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="03" src="morris03.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="04" src="morris04.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="05" src="morris05.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="06" src="morris06.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="07" src="morris07.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="08" src="morris08.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="09" src="morris09.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="10" src="morris10.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="11" src="morris11.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="12" src="morris12.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="13" src="morris13.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="14" src="morris14.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="15" src="morris15.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="16" src="morris16.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="17" src="morris17.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="18" src="morris18.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="19" src="morris19.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="20" src="morris20.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="21" src="morris21.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="22" src="morris22.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="23" src="morris23.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="24" src="morris24.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="25" src="morris25.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="26" src="morris26.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="27" src="morris27.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="28" src="morris28.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="29" src="morris29.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="30" src="morris30.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="31" src="morris31.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="32" src="morris32.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="33" src="morris33.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="34" src="morris34.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="35" src="morris35.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="36" src="morris36.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="37" src="morris37.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="38" src="morris38.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="39" src="morris39.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="40" src="morris40.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="41" src="morris41.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="42" src="morris42.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="43" src="morris43.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="44" src="morris44.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="45" src="morris45.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="46" src="morris46.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="47" src="morris47.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="48" src="morris48.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="49" src="morris49.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="50" src="morris50.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="51" src="morris51.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="52" src="morris52.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="53" src="morris53.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="54" src="morris54.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="55" src="morris55.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="56" src="morris56.png"/>
+</p>
+</div>
+
+<div class="slide">
+<br/>
+<p style="margin: 0 auto; text-align: center;">
+<img alt="57" src="morris57.png"/>
+</p>
+</div>
+
+</div>
+
+</body>
+</html>
