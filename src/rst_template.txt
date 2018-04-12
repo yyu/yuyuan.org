@@ -1,0 +1,13 @@
+%(head_prefix)s
+%(head)s
+%(stylesheet)s
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+<!-- <link rel="icon" type="image/png" href="yy.png"> -->
+<link rel="icon" href="yy.ico">
+%(body_prefix)s
+%(body_pre_docinfo)s
+%(docinfo)s
+%(body)s
+%(body_suffix)s
+
+<!-- from rst_template.txt -->
