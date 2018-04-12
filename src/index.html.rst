@@ -76,35 +76,36 @@ The operating system introduced in *The Books* is an open source project. The co
 My Poems (Chinese)
 ------------------
 
-- `夏 <w/夏.txt>`_
-- `恨 <w/恨.txt>`_
-- `误 <w/误.txt>`_
-- `酒 <w/酒.txt>`_
-- `镐 <w/镐.txt>`_
-- `世界 <w/世界.txt>`_
-- `八度 <w/八度.txt>`_
-- `太阳 <w/太阳.txt>`_
-- `小说 <w/小说.txt>`_
-- `成长 <w/成长.txt>`_
-- `阅读 <w/阅读.txt>`_
-- `一万米 <w/一万米.txt>`_
-- `打油诗 <w/打油诗.txt>`_
-- `火——之一 <w/火——之一.txt>`_
-- `火——之二 <w/火——之二.txt>`_
-- `五月二十九日有风天晴 <w/五月二十九日有风天晴.txt>`_
+- `夏 <w/夏.html>`_
+- `恨 <w/恨.html>`_
+- `误 <w/误.html>`_
+- `酒 <w/酒.html>`_
+- `镐 <w/镐.html>`_
+- `世界 <w/世界.html>`_
+- `八度 <w/八度.html>`_
+- `太阳 <w/太阳.html>`_
+- `小说 <w/小说.html>`_
+- `成长 <w/成长.html>`_
+- `阅读 <w/阅读.html>`_
+- `一万米 <w/一万米.html>`_
+- `打油诗 <w/打油诗.html>`_
+- `火——之一 <w/火——之一.html>`_
+- `火——之二 <w/火——之二.html>`_
+- `五月二十九日有风天晴 <w/五月二十九日有风天晴.html>`_
 
 My Fictions (Chinese)
 ---------------------
 
-- `床 <w/床.txt>`_
-- `瓶 <w/瓶.txt>`_
-- `跳槽 <w/跳槽.txt>`_
+- `床 <w/床.html>`_
+- `瓶 <w/瓶.html>`_
+- `跳槽 <w/跳槽.html>`_
 
 My Other Pages
 --------------
 
 - `Facebook <https://www.facebook.com/forrest.yu>`_ (I don't really update it)
 - `LinkedIn <http://www.linkedin.com/in/forrestyu>`_ (YY The Professional)
+- `Flickr <http://flickr.com/photos/forrestyu>`_ (photos)
 
 Contact Me
 ----------
