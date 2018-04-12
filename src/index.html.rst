@@ -1,7 +1,7 @@
-Yuan "Forrest" Yu (于淵)
-========================
+Yuan "Forrest" Yu
+=================
 
-Hi, I'm 于淵(Yu Yuan). You can call me Forrest, or YY, or Y². Feel free to look around.
+Hi, I'm Yú Yuān(于淵). You can call me Forrest, or YY, or Y². Feel free to look around.
 
 My articles
 -----------
@@ -13,5 +13,3 @@ I have a very bad memory, so I take notes when I read and learn. Here are some o
 - `Red-Black Tree Tutorial <RedBlackTreeTutorial/>`_
 - `Generating Function Tutorial <GeneratingFunctionTutorial/>`_
 - `Morris Algorithm <MorrisAlgorithm/>`_
-
-
