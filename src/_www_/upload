@@ -1,0 +1,14 @@
+#!/bin/bash
+
+if [ $(basename `pwd`) != '_www_' ]; then
+    echo -e "\033[31mplease run me under \033[1;31m_www_/\033[0m"
+    exit 1
+fi
+
+CDN_DISTRIBUTION_ID=E1N7O9BNC3RR58
+
+for f in $@; do
+    aws s3 cp $f s3://yuyuan.org/$f
+done
+
+aws cloudfront create-invalidation --distribution-id $CDN_DISTRIBUTION_ID --paths "/*"
