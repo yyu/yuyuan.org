@@ -76,11 +76,13 @@ The operating system introduced in *The Books* is an open source project. The co
 My Poems (Chinese)
 ------------------
 
+- `夜 <w/夜.html>`_
 - `夏 <w/夏.html>`_
 - `恨 <w/恨.html>`_
 - `误 <w/误.html>`_
 - `酒 <w/酒.html>`_
 - `镐 <w/镐.html>`_
+- `鑽石 <w/鑽石.html>`_
 - `世界 <w/世界.html>`_
 - `八度 <w/八度.html>`_
 - `太阳 <w/太阳.html>`_
@@ -105,6 +107,7 @@ My Other Pages
 
 - `Facebook <https://www.facebook.com/forrest.yu>`_ (I don't really update it)
 - `LinkedIn <http://www.linkedin.com/in/forrestyu>`_ (YY The Professional)
+- `GitHub <https://github.com/yyu>`_ (some of my code)
 - `Flickr <http://flickr.com/photos/forrestyu>`_ (photos)
 
 Contact Me
