@@ -1,8 +1,8 @@
 
 .. raw:: html
 
-	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
-	<!-- <script type="text/javascript" src="http://localhost:8000/media/mathjax/MathJax.js?config=default"></script> -->
+	<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+	<!-- <script type="text/javascript" src="https://localhost:8000/media/mathjax/MathJax.js?config=default"></script> -->
 	<link rel="stylesheet" href="math.css" type="text/css">
 
 Generating Fucntion Tutorial
